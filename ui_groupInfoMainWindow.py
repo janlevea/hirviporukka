@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\JaniL\Documents\GitHub\hirviporukka\hirviporukka\groupInfoMainWindow.ui'
+# Form implementation generated from reading ui file 'c:\Users\JaniL\Documents\GitHub\hirviporukka_fork\hirviporukka\groupInfoMainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(380, 484)
+        MainWindow.resize(379, 483)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.meatSharedTableWidget = QtWidgets.QTableWidget(self.centralwidget)
@@ -27,12 +27,12 @@ class Ui_MainWindow(object):
         self.groupSummaryTableWidget.setRowCount(4)
         self.groupSummaryTableWidget.setColumnCount(3)
         self.groupSummaryTableWidget.setObjectName("groupSummaryTableWidget")
-        self.meatShareLabel = QtWidgets.QLabel(self.centralwidget)
-        self.meatShareLabel.setGeometry(QtCore.QRect(30, 10, 151, 21))
+        self.meatSharedLabel = QtWidgets.QLabel(self.centralwidget)
+        self.meatSharedLabel.setGeometry(QtCore.QRect(30, 10, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.meatShareLabel.setFont(font)
-        self.meatShareLabel.setObjectName("meatShareLabel")
+        self.meatSharedLabel.setFont(font)
+        self.meatSharedLabel.setObjectName("meatSharedLabel")
         self.groupSummaryLabel = QtWidgets.QLabel(self.centralwidget)
         self.groupSummaryLabel.setGeometry(QtCore.QRect(30, 230, 331, 21))
         font = QtGui.QFont()
@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         self.refreshPushButton.setObjectName("refreshPushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 380, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 379, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -57,6 +57,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.meatShareLabel.setText(_translate("MainWindow", "Jaetut lihat"))
+        self.meatSharedLabel.setText(_translate("MainWindow", "Jaetut lihat"))
         self.groupSummaryLabel.setText(_translate("MainWindow", "Jakoryhmien yhteenveto"))
         self.refreshPushButton.setText(_translate("MainWindow", "Päivitä"))
