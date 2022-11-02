@@ -20,4 +20,19 @@ class GroupMainWindow(QMainWindow):
         # Create an UI from the ui file
         loadUi("groupInfoMainWindow.ui", self)
 
-    
+        # Define properties for ui elements
+        self.refreshBtn = self.refreshPushButton
+        self.groupInfo = self.groupSummaryTableWidget
+        self.sharedMeatInfo = self.meatSharedTableWidget
+
+        # Database connection parameters
+        self.database = "metsastys"
+        self.user = "sovellus"
+        self.userPassword = "Q2werty"
+        self.server = "localhost"
+        self.port = "5432"
+
+        # SIGNALS
+        
+
+        # SLOTS
