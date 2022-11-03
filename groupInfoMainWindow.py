@@ -33,6 +33,48 @@ class GroupMainWindow(QMainWindow):
         self.port = "5432"
 
         # SIGNALS
-        
+        # Emit a signal when refresh push button is pressed
+        self.refreshBtn.clicked.connect(self.refreshData)
 
-        # SLOTS
+    # SLOTS
+    # Load data to table Widgets
+    # Try to establish a connection to DB server
+    # Load data to table widgets
+    def refreshData(self):
+        # To avoid Fatal error crashing the app uses try-except-finally structure
+        try:
+            # Create a connection object
+            dbaseconnection = psycopg2.connect(database=self.database, user=self.user, password=self.userPassword,
+                                            host=self.server, port=self.port)
+            
+            # Create a cursor to execute commands and retrieve result set
+            cursor = dbaseconnection.cursor()
+            
+            # Execute a SQL command to get hunters (jasen)
+            command = "SELECT * FROM public.jaetut_lihat;"
+            cursor.execute(command)
+            result_set = cursor.fetchall()
+            print("Lihaa on jaettu seuraavasti:", result_set)
+
+        # Throw an error if connection or cursor creation fails                                     
+        except(Exception, psycopg2.Error) as e:
+            print("Tietokantayhteydessä tapahtui virhe", e)
+
+        # If or if not successfull close the cursor and the connection   
+        finally:
+            if (dbaseconnection):
+                cursor.close()
+                dbaseconnection.close()
+                print("Yhteys tietokantaan katkaistiin")
+
+# APPLICATION CREATION AND STARTING
+# ---------------------------------
+if __name__ == "__main__":
+    # Create an application object
+    app = QApplication(sys.argv)
+    app.setStyle('Fusion')
+
+    # Create the Main Window object from 
+    appWindow = GroupMainWindow()
+    appWindow.show()
+    sys.exit(app.exec_())

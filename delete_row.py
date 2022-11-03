@@ -13,18 +13,18 @@ port = "5432"
 # Try to establish a connection to DB server
 try:
     # Create a connection object
-    dbaseconnetion = psycopg2.connect(database=database, user=user, password=password,
+    dbaseconnection = psycopg2.connect(database=database, user=user, password=password,
                                       host=host, port=port)
     
     # Create a cursor to execute commands and retrieve the result set
-    cursor = dbaseconnetion.cursor()
+    cursor = dbaseconnection.cursor()
     
     # Execute a SQL command to remove a group
     command = "DELETE FROM public.jakoryhma WHERE ryhma_id = 5;"
     cursor.execute(command)
 
     # Commit the transaction
-    dbaseconnetion.commit()
+    dbaseconnection.commit()
     print("Tietue poistettiin")
 
    
@@ -34,7 +34,7 @@ except(Exception, psycopg2.Error) as e:
 
 # If or if not successfull close the cursor and the connection   
 finally:
-    if (dbaseconnetion):
+    if (dbaseconnection):
         cursor.close()
-        dbaseconnetion.close()
+        dbaseconnection.close()
         print("Yhteys tietokantaan katkaistiin")
