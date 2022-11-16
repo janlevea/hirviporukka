@@ -102,7 +102,7 @@ class DatabaseOperation():
 
             # Create a cursor to retrieve data from the table
             with dbconnection.cursor() as cursor:
-                sqlClause = "SELECT * FROM " + table + ";"
+                sqlClause = 'SELECT * FROM ' + table + ';'
                 cursor.execute(sqlClause)
 
                 #Set object properties

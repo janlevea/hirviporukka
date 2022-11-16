@@ -61,15 +61,10 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseSavePushBtn = self.licenseSavePushButton
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
-        '''
-        # Database connection parameters
-        self.database = "metsastys"
-        self.user = "sovellus"
-        self.userPassword = "Q2werty"
-        self.server = "localhost"
-        self.port = "5432"
-        '''
-        # Other signals
+        # Signal when a page is opened
+        self.pageTab = self.tabWidget
+
+        # Signals other than emitted by UI elements
 
     # SLOTS
 
@@ -84,7 +79,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Read data from view jakoryhma_yhteenveto, no need to read con args twice
         databaseOperation2 = pgModule.DatabaseOperation()
-        databaseOperation2 = databaseOperation2.getAllRowsFromTable(connectionArguments, 'public.jakoryhma_yhteenveto')
+        databaseOperation2.getAllRowsFromTable(connectionArguments, 'public.jakoryhma_yhteenveto')
         prepareData.prepareTable(databaseOperation2, self.summaryGroupSummaryTW)
         # TODO: MessageBox if an error occured
 
