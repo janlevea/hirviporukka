@@ -27,7 +27,7 @@
      <locale language="Finnish" country="Finland"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="summaryPage">
      <attribute name="title">
@@ -137,7 +137,7 @@
         <x>690</x>
         <y>250</y>
         <width>81</width>
-        <height>91</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="font">
@@ -369,9 +369,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
+        <y>226</y>
         <width>671</width>
-        <height>97</height>
+        <height>121</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
