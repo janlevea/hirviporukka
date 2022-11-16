@@ -27,7 +27,7 @@
      <locale language="Finnish" country="Finland"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="summaryPage">
      <attribute name="title">
@@ -134,10 +134,10 @@
      <widget class="QPushButton" name="saveShotPushButton">
       <property name="geometry">
        <rect>
-        <x>700</x>
-        <y>360</y>
-        <width>61</width>
-        <height>41</height>
+        <x>690</x>
+        <y>250</y>
+        <width>81</width>
+        <height>91</height>
        </rect>
       </property>
       <property name="font">
@@ -149,13 +149,13 @@
        <string>Tallenna</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>110</y>
         <width>759</width>
-        <height>71</height>
+        <height>51</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -236,9 +236,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>390</y>
-        <width>671</width>
-        <height>131</height>
+        <y>370</y>
+        <width>751</width>
+        <height>151</height>
        </rect>
       </property>
      </widget>
@@ -246,16 +246,21 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>360</y>
+        <y>350</y>
         <width>241</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Kaadot</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -360,13 +365,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>250</y>
-        <width>751</width>
-        <height>101</height>
+        <width>671</width>
+        <height>97</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -396,46 +401,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>190</y>
-        <width>361</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_11">
-       <item>
-        <widget class="QLabel" name="weightLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Paino</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="weightLineEdit">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>380</x>
-        <y>190</y>
+        <y>170</y>
         <width>381</width>
-        <height>51</height>
+        <height>46</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -453,6 +425,39 @@
        </item>
        <item>
         <widget class="QComboBox" name="usageComboBox">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>361</width>
+        <height>46</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <widget class="QLabel" name="weightLabel">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Paino</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="weightLineEdit">
          <property name="font">
           <font>
            <pointsize>9</pointsize>
@@ -493,7 +498,7 @@
        <string>Jakoehdotukset</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -519,7 +524,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -561,7 +566,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -583,7 +588,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>300</x>
@@ -605,7 +610,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>470</x>
@@ -678,7 +683,7 @@
        <string>Myönnetyt luvat</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -711,7 +716,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>170</x>
@@ -744,7 +749,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -777,7 +782,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>490</x>
@@ -810,7 +815,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>630</x>
@@ -848,7 +853,7 @@
      <attribute name="title">
       <string>Ylläpito</string>
      </attribute>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -918,6 +923,7 @@
   <tabstop>usageComboBox</tabstop>
   <tabstop>additionalInfoTextEdit</tabstop>
   <tabstop>saveShotPushButton</tabstop>
+  <tabstop>killsKillsTableWidget</tabstop>
   <tabstop>shareKillsTableWidget</tabstop>
   <tabstop>shareDateEdit</tabstop>
   <tabstop>portionComboBox</tabstop>
@@ -931,20 +937,6 @@
   <tabstop>licenseAmountLineEdit</tabstop>
   <tabstop>licenseSavePushButton</tabstop>
   <tabstop>licenseSummaryTableWidget</tabstop>
-  <tabstop>usageComboBox_2</tabstop>
-  <tabstop>summaryRefreshPushButton_2</tabstop>
-  <tabstop>meatSharedTableWidget_2</tabstop>
-  <tabstop>groupSummaryTableWidget_2</tabstop>
-  <tabstop>shotByComboBox_2</tabstop>
-  <tabstop>shotDateEdit_2</tabstop>
-  <tabstop>tableWidget_2</tabstop>
-  <tabstop>saveShotPushButton_2</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>animalComboBox_2</tabstop>
-  <tabstop>ageGroupComboBox_2</tabstop>
-  <tabstop>genderComboBox_2</tabstop>
-  <tabstop>additionalInfoTextEdit_2</tabstop>
-  <tabstop>weightLineEdit_2</tabstop>
  </tabstops>
  <resources/>
  <connections/>
