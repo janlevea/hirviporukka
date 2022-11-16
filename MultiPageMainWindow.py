@@ -79,22 +79,14 @@ class MultiPageMainWindow(QMainWindow):
         databaseOperation1 = pgModule.DatabaseOperation()
         connectionArguments = databaseOperation1.readDatabaseSettingsFromFile('settings.dat')
         databaseOperation1.getAllRowsFromTable(connectionArguments, "public.jaetut_lihat")
+        prepareData.prepareTable(databaseOperation1, self.summaryMeatSharedTW)
         # TODO: MessageBox if an error occured
 
         # Read data from view jakoryhma_yhteenveto, no need to read con args twice
         databaseOperation2 = pgModule.DatabaseOperation()
         databaseOperation2 = databaseOperation2.getAllRowsFromTable(connectionArguments, 'public.jakoryhma_yhteenveto')
+        prepareData.prepareTable(databaseOperation2, self.summaryGroupSummaryTW)
         # TODO: MessageBox if an error occured
-
-        # Let's call the real method which updates the widget
-        self.refreshData(databaseOperation1, self.summaryMeatSharedTW)
-        self.refreshData(databaseOperation2, self.summaryGroupSummaryTW)
-
-
-    # This is a function that updates table widgets in the UI
-    # because it does not receive signals; it's not a slot
-    def refreshData(self, databaseOperation, widget):
-        prepareData.prepareTable(databaseOperation, widget)
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
