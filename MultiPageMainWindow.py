@@ -26,6 +26,8 @@ class MultiPageMainWindow(QMainWindow):
         # -------------------------
         # Summary page (Yhteenveto)
         self.summaryRefreshBtn = self.summaryRefreshPushButton
+        self.summaryRefreshBtn.clicked.connect(self.populateSummaryPage) # Signal
+
         self.summaryMeatSharedTW = self.meatSharedTableWidget
         self.summaryGroupSummaryTW = self.groupSummaryTableWidget
 
@@ -38,9 +40,9 @@ class MultiPageMainWindow(QMainWindow):
         self.genderCB = self.genderComboBox
         self.weightLE = self.weightLineEdit
         self.usageCB = self.usageComboBox
-        self.AddInfoTE = self.AdditionalInfoTextEdit
+        self.addInfoTE = self.additionalInfoTextEdit
         self.saveShotPushBtn = self.saveShotPushButton
-        self.killsKillTW = self.killsKillTableWidget
+        self.killsKillsTW = self.killsKillsTableWidget
 
         # Share page (Lihanjako)
         self.shareKillsTW = self.shareKillsTableWidget
@@ -57,7 +59,7 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseGenderCB = self.licenseGenderComboBox
         self.licenseAmountLE = self.licenseAmountLineEdit
         self.licenseSavePushBtn = self.licenseSavePushButton
-        self.grantedLicenseTW = self.grantedLicenseTableWidget
+        self.licenseSummaryTW = self.licenseSummaryTableWidget
 
         '''
         # Database connection parameters
@@ -67,27 +69,27 @@ class MultiPageMainWindow(QMainWindow):
         self.server = "localhost"
         self.port = "5432"
         '''
-
-        # SIGNALS
-        # Emit a signal when refresh push button is pressed
-        self.refreshBtn.clicked.connect(self.agentRefreshData)
+        # Other signals
 
     # SLOTS
 
-    # Agent method is used for receiving a signal from an UI element
-    def agentRefreshData(self):
+    # A method to populate summaryPage's table widgets
+    def populateSummaryPage(self):
         # Read data from view jaetut_lihat
         databaseOperation1 = pgModule.DatabaseOperation()
         connectionArguments = databaseOperation1.readDatabaseSettingsFromFile('settings.dat')
         databaseOperation1.getAllRowsFromTable(connectionArguments, "public.jaetut_lihat")
+        # TODO: MessageBox if an error occured
 
         # Read data from view jakoryhma_yhteenveto, no need to read con args twice
         databaseOperation2 = pgModule.DatabaseOperation()
         databaseOperation2 = databaseOperation2.getAllRowsFromTable(connectionArguments, 'public.jakoryhma_yhteenveto')
+        # TODO: MessageBox if an error occured
 
         # Let's call the real method which updates the widget
-        self.refreshData(databaseOperation1, self.sharedMeatInfo)
-        self.refreshData(databaseOperation2, self.groupInfo)
+        self.refreshData(databaseOperation1, self.summaryMeatSharedTW)
+        self.refreshData(databaseOperation2, self.summaryGroupSummaryTW)
+
 
     # This is a function that updates table widgets in the UI
     # because it does not receive signals; it's not a slot
