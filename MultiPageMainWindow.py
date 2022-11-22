@@ -36,20 +36,20 @@ class MultiPageMainWindow(QMainWindow):
         self.shotDate = self.shotDateEdit
         self.shotLocation = self.locationLineEdit
         self.shotAnimalCB = self.animalComboBox
-        self.ageGroupCB = self.ageGroupComboBox
-        self.genderCB = self.genderComboBox
-        self.weightLE = self.weightLineEdit
-        self.usageCB = self.usageComboBox
-        self.addInfoTE = self.additionalInfoTextEdit
-        self.saveShotPushBtn = self.saveShotPushButton
-        self.killsKillsTW = self.killsKillsTableWidget
+        self.shotAgeGroupCB = self.ageGroupComboBox
+        self.shotGenderCB = self.genderComboBox
+        self.shotWeightLE = self.weightLineEdit
+        self.shotUsageCB = self.usageComboBox
+        self.shotAddInfoTE = self.additionalInfoTextEdit
+        self.shotSavePushBtn = self.saveShotPushButton
+        self.shotKillsTW = self.killsKillsTableWidget
 
         # Share page (Lihanjako)
         self.shareKillsTW = self.shareKillsTableWidget
         self.shareDE = self.shareDateEdit
-        self.portionCB = self.portionComboBox
-        self.amountLE = self.amountLineEdit
-        self.groupCB = self.groupComboBox
+        self.sharePortionCB = self.portionComboBox
+        self.shareAmountLE = self.amountLineEdit
+        self.shareGroupCB = self.groupComboBox
         self.shareSavePushBtn = self.shareSavePushButton
 
         # License page (Luvat)
@@ -90,14 +90,34 @@ class MultiPageMainWindow(QMainWindow):
         databaseOperation1 = pgModule.DatabaseOperation()
         connectionArguments = databaseOperation1.readDatabaseSettingsFromFile('settings.dat')
         databaseOperation1.getAllRowsFromTable(connectionArguments, "public.kaatoluettelo")
-        prepareData.prepareTable(databaseOperation1, self.killsKillsTW)
+        prepareData.prepareTable(databaseOperation1, self.shotKillsTW)
         # TODO: MessageBox if an error occured
 
         # Read data from view nimivalinta
         databaseOperation2 = pgModule.DatabaseOperation()
         databaseOperation2.getAllRowsFromTable(connectionArguments, "public.nimivalinta")
         self.shotById = prepareData.prepareComboBox(databaseOperation2, self.shotCB, 1, 0)
-        # prepareData.prepareTable(databaseOperation2, self.killsKillsTW)
+        
+        # Read data from table elain and populate the combo box
+        databaseOperation3 = pgModule.DatabaseOperation()
+        databaseOperation3.getAllRowsFromTable(connectionArguments, 'public.elain')
+        self.shotAnimalText = prepareData.prepareComboBox(databaseOperation3, self.shotAnimalCB, 0, 0)
+
+        # Read data from table aikiunenvasa and populate the combo box
+        databaseOperation4 = pgModule.DatabaseOperation()
+        databaseOperation4.getAllRowsFromTable(connectionArguments, 'public.aikuinenvasa')
+        self.shotAgeGroupText = prepareData.prepareComboBox(databaseOperation4, self.shotAgeGroupCB, 0, 0)
+
+        # Read data from table sukupuoli and populate the combo box
+        databaseOperation5 = pgModule.DatabaseOperation()
+        databaseOperation5.getAllRowsFromTable(connectionArguments, 'public.sukupuoli')
+        self.shotGenderText = prepareData.prepareComboBox(databaseOperation5, self.shotGenderCB, 0, 0)
+
+        # Read data from table kasittely and populate the combo box
+        databaseOperation6 = pgModule.DatabaseOperation()
+        databaseOperation6.getAllRowsFromTable(connectionArguments, 'public.kasittely')
+        self.shotUsageId = prepareData.prepareComboBox(databaseOperation6, self.shotUsageCB, 1, 0)
+
 
     def populateAllPages(self):
         self.populateSummaryPage()
