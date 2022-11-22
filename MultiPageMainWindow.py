@@ -32,9 +32,9 @@ class MultiPageMainWindow(QMainWindow):
         self.summaryGroupSummaryTW = self.groupSummaryTableWidget
 
         # Kill page (Kaato)
-        self.shotCB = self.shotByComboBox
-        self.shotDate = self.shotDateEdit
-        self.shotLocation = self.locationLineEdit
+        self.shotByCB = self.shotByComboBox
+        self.shotDateDE = self.shotDateEdit
+        self.shotLocationLE = self.locationLineEdit
         self.shotAnimalCB = self.animalComboBox
         self.shotAgeGroupCB = self.ageGroupComboBox
         self.shotGenderCB = self.genderComboBox
@@ -42,6 +42,7 @@ class MultiPageMainWindow(QMainWindow):
         self.shotUsageCB = self.usageComboBox
         self.shotAddInfoTE = self.additionalInfoTextEdit
         self.shotSavePushBtn = self.saveShotPushButton
+        self.shotSavePushBtn.clicked.connect(self.saveShot)
         self.shotKillsTW = self.killsKillsTableWidget
 
         # Share page (Lihanjako)
@@ -96,7 +97,7 @@ class MultiPageMainWindow(QMainWindow):
         # Read data from view nimivalinta
         databaseOperation2 = pgModule.DatabaseOperation()
         databaseOperation2.getAllRowsFromTable(connectionArguments, "public.nimivalinta")
-        self.shotById = prepareData.prepareComboBox(databaseOperation2, self.shotCB, 1, 0)
+        self.shotByIdList = prepareData.prepareComboBox(databaseOperation2, self.shotByCB, 1, 0)
         
         # Read data from table elain and populate the combo box
         databaseOperation3 = pgModule.DatabaseOperation()
@@ -116,13 +117,39 @@ class MultiPageMainWindow(QMainWindow):
         # Read data from table kasittely and populate the combo box
         databaseOperation6 = pgModule.DatabaseOperation()
         databaseOperation6.getAllRowsFromTable(connectionArguments, 'public.kasittely')
-        self.shotUsageId = prepareData.prepareComboBox(databaseOperation6, self.shotUsageCB, 1, 0)
+        self.shotUsageIdList = prepareData.prepareComboBox(databaseOperation6, self.shotUsageCB, 1, 0)
 
 
     def populateAllPages(self):
         self.populateSummaryPage()
         self.populateKillPage()
 
+    def saveShot(self):
+        # TODO: Add error handling and msg box
+        shotByChosenItemIx = self.shotByCB.currentIndex()
+        shotById = self.shotByIdList[shotByChosenItemIx]
+        shootingDay = self.shotDateDE.date().toPyDate()
+        shootingPlace = self.shotLocationLE.text()
+        animal = self.shotAnimalCB.currentText()
+        ageGroup = self.shotAgeGroupCB.currentText()
+        gender = self.shotGenderCB.currentText()
+        weight = float(self.shotWeightLE.text())
+        useIx = self.shotUsageCB.currentIndex()
+        use = self.shotUsageIdList[useIx]
+        additionalInfo = self.shotAddInfoTE.toPlainText()
+
+        # Insert data into kaato table
+        sqlClauseBeginning = "INSERT INTO public.kaato(\
+            jasen_id, kaatopaiva, ruhopaino, paikka_teksti, kasittelyid, elaimen_nimi, sukupuoli, ikaluokka, lisatieto)\
+            VALUES ("
+        sqlClauseValues = f"{shotById}, {shootingDay}, {weight}, '{shootingPlace}', {use}, '{animal}', '{gender}', '{ageGroup}', '{additionalInfo}'"
+        sqlClauseEnd = ");"
+        sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
+        print(sqlClause)
+        # print('ampujan id:', shotById, '---', 'ampumispäivä:', shootingDay)
+        # print('paikka:', shootingPlace, 'elukka:', animal, ageGroup, gender)
+
+        # paino, käyttö, lisätietoja
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
