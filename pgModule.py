@@ -165,7 +165,7 @@ class DatabaseOperation():
             if self.errorCode == 0:
                 dbconnection.close()
 
-    # TODO: Finish writing methods for update and delete
+    # FIXME: Method to update a table -> how to build the limiting
     # -- Update a table
     def updateTable(self, connectionArgs, table, column, limit):
         """Updates a table
@@ -242,8 +242,8 @@ class DatabaseOperation():
 
                 # Set error values
                 self.errorCode = 0
-                self.errorMessage = 'Poistettiin tietue onnistuneesti'
-                self.detailedMessage = 'Deleting from table was successful'
+                self.errorMessage = 'Poisto suoritteettiin onnistuneesti'
+                self.detailedMessage = 'Delete operation was successful'
                 dbconnection.commit()
                 
         except (Exception, psycopg2.Error) as error:
