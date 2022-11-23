@@ -66,6 +66,7 @@ class MultiPageMainWindow(QMainWindow):
         self.shareAmountLE = self.amountLineEdit
         self.shareGroupCB = self.groupComboBox
         self.shareSavePushBtn = self.shareSavePushButton
+        # TODO: Signal for shareSavePushBtn
 
         # License page (Luvat)
         self.licenseYearLE = self.licenseYearLineEdit
@@ -74,6 +75,7 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseGenderCB = self.licenseGenderComboBox
         self.licenseAmountLE = self.licenseAmountLineEdit
         self.licenseSavePushBtn = self.licenseSavePushButton
+        self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
         # Signal when a page is opened
@@ -197,13 +199,87 @@ class MultiPageMainWindow(QMainWindow):
         else:
             self.shotUsageIdList = prepareData.prepareComboBox(databaseOperation6, self.shotUsageCB, 1, 0)
 
+    def populateSharePage(self):
+        # Set default date to current date
+        self.shareDE.setDate(self.currentDate)
+        # Read data from view kaatoluettelo
+        databaseOperation1 = pgModule.DatabaseOperation()
+        databaseOperation1.getAllRowsFromTable(self.connectionArguments, "public.kaatoluettelo")
 
+        # Check if error has occured
+        if databaseOperation1.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
+        else:
+            prepareData.prepareTable(databaseOperation1, self.shareKillsTW)
+
+        # Read data from table ruhonosa
+        databaseOperation2 = pgModule.DatabaseOperation()
+        databaseOperation2.getAllRowsFromTable(self.connectionArguments, "public.ruhonosa")
+
+        # Check if error has occured
+        if databaseOperation2.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
+        else: 
+            self.sharePortionText = prepareData.prepareComboBox(databaseOperation2, self.sharePortionCB, 0, 0)
+
+        # Read data from table jakoryhma
+        databaseOperation3 = pgModule.DatabaseOperation()
+        databaseOperation3.getAllRowsFromTable(self.connectionArguments, "public.jakoryhma")
+
+        # Check if error has occured
+        if databaseOperation3.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation3.errorMessage, databaseOperation3.detailedMessage)
+        else: 
+            self.shareGroupIdList = prepareData.prepareComboBox(databaseOperation3, self.shareGroupCB, 2, 0)
+
+    def populateLicensePage(self):
+        # Set default license year to current year
+        self.licenseYearLE.setText(str(self.currentDate.year))
+
+        # Read data from table elain
+        databaseOperation1 = pgModule.DatabaseOperation()
+        databaseOperation1.getAllRowsFromTable(self.connectionArguments, "public.elain")
+
+        # Check if error has occured
+        if databaseOperation1.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
+        else:
+            self.licenseAnimalText = prepareData.prepareComboBox(databaseOperation1, self.licenseAnimalCB, 0, 0)
+
+        # Read data from table aikuinenvasa (age group)
+        databaseOperation2 = pgModule.DatabaseOperation()
+        databaseOperation2.getAllRowsFromTable(self.connectionArguments, "public.aikuinenvasa")
+
+        # Check if error has occured
+        if databaseOperation2.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
+        else: 
+            self.licenseAgeGroupText = prepareData.prepareComboBox(databaseOperation2, self.licenseAgeGroupCB, 0, 0)
+
+        # Read data from table sukupuoli
+        databaseOperation3 = pgModule.DatabaseOperation()
+        databaseOperation3.getAllRowsFromTable(self.connectionArguments, "public.sukupuoli")
+        
+        # Check if error has occured
+        if databaseOperation3.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation3.errorMessage, databaseOperation3.detailedMessage)
+        else: 
+            self.licenseGenderText = prepareData.prepareComboBox(databaseOperation3, self.licenseGenderCB, 0, 0)
+    
     def populateAllPages(self):
         self.populateSummaryPage()
         self.populateKillPage()
+        self.populateSharePage()
+        self.populateLicensePage()
 
     def saveShot(self):
-        # TODO: Add error handling and msg box
+        errorOccured = False
         try:
             shotByChosenItemIx = self.shotByCB.currentIndex()
             shotById = self.shotByIdList[shotByChosenItemIx]
@@ -227,28 +303,77 @@ class MultiPageMainWindow(QMainWindow):
                 '{animal}', '{gender}', '{ageGroup}', '{additionalInfo}'"""
             sqlClauseEnd = ");"
             sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
-        except:
-            self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'jotain meni väärin', 'hippopotamus')
+        except Exception as error:
+            errorOccured = True
+            self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
+        finally:
+            if not errorOccured:
+                print(sqlClause)
+                # Create DatabaseOperation object to execute the SQL clause
+                databaseOperation = pgModule.DatabaseOperation()
+                databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
+                
+                if databaseOperation.errorCode != 0:
+                    self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+                        databaseOperation.errorMessage, databaseOperation.detailedMessage)
+                else:
+                    # Update the page to show new data and clear previous data from elements
+                    self.populateKillPage()
+                    self.shotLocationLE.clear()
+                    self.shotWeightLE.clear()
+                    self.shotAddInfoTE.clear()
+                    # self.shotDateDE
 
-        print(sqlClause)
-        databaseOperation = pgModule.DatabaseOperation()
-        databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
-        
-        if databaseOperation.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
-                databaseOperation.errorMessage, databaseOperation.detailedMessage)
-        else:
-            # Update the page to show new data and clear previous data from elements
-            self.populateKillPage()
-            self.shotLocationLE.clear()
-            self.shotWeightLE.clear()
-            self.shotAddInfoTE.clear()
-            # self.shotDateDE
+                # print('ampujan id:', shotById, '---', 'ampumispäivä:', shootingDay)
+                # print('paikka:', shootingPlace, 'elukka:', animal, ageGroup, gender)
 
-        # print('ampujan id:', shotById, '---', 'ampumispäivä:', shootingDay)
-        # print('paikka:', shootingPlace, 'elukka:', animal, ageGroup, gender)
+                # paino, käyttö, lisätietoja
 
-        # paino, käyttö, lisätietoja
+    def saveLicense(self):
+        errorOccured = False
+        try:
+            shotByChosenItemIx = self.shotByCB.currentIndex()
+            shotById = self.shotByIdList[shotByChosenItemIx]
+            shootingDay = self.shotDateDE.date().toPyDate()
+            shootingPlace = self.shotLocationLE.text()
+            animal = self.shotAnimalCB.currentText()
+            ageGroup = self.shotAgeGroupCB.currentText()
+            gender = self.shotGenderCB.currentText()
+            weight = float(self.shotWeightLE.text())
+            useIx = self.shotUsageCB.currentIndex()
+            use = self.shotUsageIdList[useIx]
+            additionalInfo = self.shotAddInfoTE.toPlainText()
+
+            # Insert data into kaato table
+            sqlClauseBeginning = "INSERT INTO public.kaato(\
+                jasen_id, kaatopaiva, ruhopaino, paikka_teksti,\
+                kasittelyid, elaimen_nimi, sukupuoli, ikaluokka, lisatieto)\
+                VALUES ("
+            sqlClauseValues = f"""
+                {shotById}, '{shootingDay}', {weight}, '{shootingPlace}', {use},
+                '{animal}', '{gender}', '{ageGroup}', '{additionalInfo}'"""
+            sqlClauseEnd = ");"
+            sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
+        except Exception as error:
+            errorOccured = True
+            self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
+        finally:
+            if not errorOccured:
+                print(sqlClause)
+                # Create DatabaseOperation object to execute the SQL clause
+                databaseOperation = pgModule.DatabaseOperation()
+                databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
+                
+                if databaseOperation.errorCode != 0:
+                    self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+                        databaseOperation.errorMessage, databaseOperation.detailedMessage)
+                else:
+                    # Update the page to show new data and clear previous data from elements
+                    self.populateKillPage()
+                    self.shotLocationLE.clear()
+                    self.shotWeightLE.clear()
+                    self.shotAddInfoTE.clear()
+                    # self.shotDateDE
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
