@@ -176,7 +176,40 @@ class DatabaseOperation():
             column (str): Column to be updated
             limit (str): WHERE SQL statement
         """
-        pass
+        server = connectionArgs['server']
+        port = connectionArgs['port']
+        database = connectionArgs['database']
+        user = connectionArgs['user']
+        password = connectionArgs['password']
+
+        try:
+            # Connect to the database and set error parameters
+            dbconnection = psycopg2.connect(
+                database=database, user=user, password=password, host=server, port=port)
+            self.errorCode = 0
+            self.errorMessage = 'Yhdistettiin tietokantaan'
+            self.detailedMessage = 'Connected to database successfully'
+
+            # Create a cursor to retrieve data from the table
+            with dbconnection.cursor() as cursor:
+                sqlClause = f'UPDATE {table} SET {column} WHERE {limit}'
+                cursor.execute(sqlClause)
+
+                # Set error values
+                self.errorCode = 0
+                self.errorMessage = 'Päivitettiin tietue onnistuneesti'
+                self.detailedMessage = 'Update was successful'
+                dbconnection.commit()
+                
+        except (Exception, psycopg2.Error) as error:
+
+            # Set error values 
+            self.errorCode = 1 # TODO: Design a set of error codes to use with this module
+            self.errorMessage = 'Tietokannan käsittely ei onnistunut'
+            self.detailedMessage = str(error)
+        finally:
+            if self.errorCode == 0:
+                dbconnection.close()
 
     # -- Delete a row from table
     def deleteFromTable(self, connectionArgs, table, limit):
@@ -187,7 +220,42 @@ class DatabaseOperation():
             table (str): Table name
             limit (str): WHERE SQL statement
         """
-        pass
+
+        server = connectionArgs['server']
+        port = connectionArgs['port']
+        database = connectionArgs['database']
+        user = connectionArgs['user']
+        password = connectionArgs['password']
+
+        try:
+            # Connect to the database and set error parameters
+            dbconnection = psycopg2.connect(
+                database=database, user=user, password=password, host=server, port=port)
+            self.errorCode = 0
+            self.errorMessage = 'Yhdistettiin tietokantaan'
+            self.detailedMessage = 'Connected to database successfully'
+
+            # Create a cursor to retrieve data from the table
+            with dbconnection.cursor() as cursor:
+                sqlClause = f'DELETE FROM {table} WHERE {limit}'
+                cursor.execute(sqlClause)
+
+                # Set error values
+                self.errorCode = 0
+                self.errorMessage = 'Poistettiin tietue onnistuneesti'
+                self.detailedMessage = 'Deleting from table was successful'
+                dbconnection.commit()
+                
+        except (Exception, psycopg2.Error) as error:
+
+            # Set error values 
+            self.errorCode = 1 # TODO: Design a set of error codes to use with this module
+            self.errorMessage = 'Tietokannan käsittely ei onnistunut'
+            self.detailedMessage = str(error)
+
+        finally:
+            if self.errorCode == 0:
+                dbconnection.close()
 
     # Method to call a stored procedure and pass parameters
     def callProcedure(self, connectionArgs, procedure, params):
@@ -232,7 +300,6 @@ class DatabaseOperation():
         finally:
             if self.errorCode == 0:
                 dbconnection.close()
-        pass
 
 # LOCAL TESTS, REMOVE WHEN FINISHED DESIGNING THE MODULE
 if __name__ == "__main__":
@@ -242,14 +309,28 @@ if __name__ == "__main__":
     dictionary = testOperation.createConnectionArgumentDict(
         'metsastys', 'sovellus', 'Q2werty')
     # print(dictionary)
-    # FIXME: Correct the line above
     # Save those settings to file
     testOperation.saveDatabaseSettingsToFile('settings.dat', dictionary)
     # Read settings back from the file
-    readedSettings = testOperation.readDatabaseSettingsFromFile('settings.dat')
-    # print(readedSettings)
-    testOperation.getAllRowsFromTable(readedSettings, "public.jasen")
+    settingsRead = testOperation.readDatabaseSettingsFromFile('settings.dat')
+    
+    # Get all rows from test table
+    testOperation.getAllRowsFromTable(settingsRead, "public.pgmodule_test")
+
     print(testOperation.resultSet)
+
+    # # Test insert operation with a sql clause
+    # sqlClause = "INSERT INTO public.pgmodule_test(etunimi, sukunimi, ika) VALUES ('Jonne', 'Janttari', 17);"
+    # print (sqlClause)
+    # testOperation.insertRowToTable(settingsRead, sqlClause)
+    # print(testOperation.errorMessage, "--------------\n", testOperation.detailedMessage)
+
+    # Test delete operation
+    # limit = 'id = 2'
+    # testOperation.deleteFromTable(settingsRead, 'public.pgmodule_test', limit)
+
+    # Test update operation
+    # testOperation.updateTable(settingsRead, 'public.pgmodule.test', )
 
 # -------------copypasted
 """
