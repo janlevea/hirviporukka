@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QTableWidgetItem # For handling a single table cell
 """
 # Temporary object to get help about object properties
 resultObject = pgModule.DatabaseOperation()
-testConnectionArgs = resultObject.readDatabaseSettingsFromFile("settings.dat")
+testConnectionArgs = resultObject.readDatabaseSettingsFromFile("dbsettings.json")
 resultObject.getAllRowsFromTable(
     testConnectionArgs, 'public.jakoryhma')
 

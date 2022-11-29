@@ -12,7 +12,7 @@ from PyQt5.QtCore import * # FIXME: Everything, change to invidual components
 from datetime import date
 import pgModule
 import prepareData
-import serverSettingsDialog
+import dialogWindows
 
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
@@ -29,7 +29,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Read database connection arguments from the settings file
         databaseOperation = pgModule.DatabaseOperation()
-        self.connectionArguments = databaseOperation.readDatabaseSettingsFromFile('settings.dat')
+        self.connectionArguments = databaseOperation.readDatabaseSettingsFromFile('dbsettings.json')
 
         # UI ELEMENTS TO PROPERTIES
         # -------------------------
@@ -96,7 +96,7 @@ class MultiPageMainWindow(QMainWindow):
     # SLOTS
     # Modify and save database settings - Tietokanta > Palvelinasetukset...
     def openSettingsDialog(self):
-        dialog = serverSettingsDialog.DBSettingsDialog()
+        dialog = dialogWindows.DBSettingsDialog()
         dialog.exec()
 
 

@@ -310,9 +310,9 @@ if __name__ == "__main__":
         'metsastys', 'sovellus', 'Q2werty')
     # print(dictionary)
     # Save those settings to file
-    testOperation.saveDatabaseSettingsToFile('settings.dat', dictionary)
+    testOperation.saveDatabaseSettingsToFile('dbsettings.json', dictionary)
     # Read settings back from the file
-    settingsRead = testOperation.readDatabaseSettingsFromFile('settings.dat')
+    settingsRead = testOperation.readDatabaseSettingsFromFile('dbsettings.json')
     
     # Get all rows from test table
     testOperation.getAllRowsFromTable(settingsRead, "public.pgmodule_test")
