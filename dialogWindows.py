@@ -17,6 +17,9 @@ class DialogTestMainWindow(QMainWindow):
         dbSettingsDialog = DBSettingsDialog()
         dbSettingsDialog.exec()
 
+        aboutDialog = AboutDialog()
+        aboutDialog.exec()
+
 # A class for a dialog to save database settings
 class DBSettingsDialog(QDialog):
     """Creates a dialog to save database settings"""
@@ -37,12 +40,13 @@ class DBSettingsDialog(QDialog):
         self.databaseLE = self.databaseNameLineEdit
         self.usernameLE = self.databaseUserLineEdit
         self.passwordLE = self.databasePasswordLineEdit
+        self.fileNameLE = self.fileNameLineEdit
 
         # Set values of elements according to the current settings
         # Create an object to use setting methods
         self.databaseOperation = pgModule.DatabaseOperation() # Needed in slots -> self
         currentSettings = self.databaseOperation.readDatabaseSettingsFromFile(
-            'settings.dat')  # Read current settings, needed only in the constructor
+            'dbsettings.json')  # Read current settings, needed only in the constructor
         self.hostLE.setText(currentSettings['server'])  # Server's host name
         # Port number, spin box uses integer values
         self.portSB.setValue(int(currentSettings['port']))
@@ -51,6 +55,8 @@ class DBSettingsDialog(QDialog):
         self.usernameLE.setText(currentSettings['user'])
         self.passwordLE.setText("")
         self.passwordLE.setEchoMode(QLineEdit.Password)
+
+        self.fileNameLE.setText("dbsettings.json")
 
         # Signals
         self.savePB.clicked.connect(self.saveSettings)
@@ -75,9 +81,32 @@ class DBSettingsDialog(QDialog):
         
         # Save arguments to a json file
         self.databaseOperation.saveDatabaseSettingsToFile(
-            'settings.dat', newSettings)
+            'dbsettings.json', newSettings)
         self.close()
 
+    # Peru button closes the dialog
+    def closeDialog(self):
+        self.close()
+
+# A class for about dialog
+class AboutDialog(QDialog):
+    """Creates about dialog"""
+
+    # Constructor
+    def __init__(self):
+        super().__init__()
+
+        loadUi("aboutDialog.ui", self)
+
+        self.setWindowTitle('Tietoa ohjelmasta')
+
+        # Elements
+        self.closePB = self.closePushButton
+
+        # Signals
+        self.closePB.clicked.connect(self.closeDialog)
+
+    # Slots
     # Peru button closes the dialog
     def closeDialog(self):
         self.close()
