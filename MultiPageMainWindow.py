@@ -82,6 +82,9 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
+        # TODO: Add about and manual dialogs
+        # About has been started, no idea for manual yet. Maybe PDF file.
+
         # Actions
         # Menu: Tietokanta > Palvelinasetukset...
         self.actionServerSettings.triggered.connect(self.openSettingsDialog)

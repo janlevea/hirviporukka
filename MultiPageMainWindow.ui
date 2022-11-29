@@ -27,7 +27,7 @@
      <locale language="Finnish" country="Finland"/>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="summaryPage">
      <attribute name="title">
@@ -1163,7 +1163,15 @@
     </property>
     <addaction name="actionServerSettings"/>
    </widget>
+   <widget class="QMenu" name="menuTietoa">
+    <property name="title">
+     <string>Tietoa</string>
+    </property>
+    <addaction name="actionAboutProgram"/>
+    <addaction name="actionManual"/>
+   </widget>
    <addaction name="menuTietokanta"/>
+   <addaction name="menuTietoa"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionServerSettings">
@@ -1175,6 +1183,16 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionAboutProgram">
+   <property name="text">
+    <string>Ohjelma</string>
+   </property>
+  </action>
+  <action name="actionManual">
+   <property name="text">
+    <string>Käyttöohje</string>
    </property>
   </action>
  </widget>
