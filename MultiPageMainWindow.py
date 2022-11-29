@@ -1,5 +1,5 @@
-# APPLICATION FOR SHOWING SUMMARY DATA ABOUT MEAT GIVEN TO SHARE GROUP
-# ====================================================================
+# APPLICATION FOR READING DATA FROM A DATABASE AND SHOWING RESULTS IN A MULTI PAGE TAB WIDGET
+# ===========================================================================================
 
 # LIBRARIES AND MODULES
 # ---------------------
@@ -12,6 +12,7 @@ from PyQt5.QtCore import * # FIXME: Everything, change to invidual components
 from datetime import date
 import pgModule
 import prepareData
+import serverSettingsDialog
 
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
@@ -23,6 +24,9 @@ class MultiPageMainWindow(QMainWindow):
         # Create an UI from the ui file
         loadUi("MultiPageMainWindow.ui", self)
         
+        # Set window title
+        self.setWindowTitle("Jahtidata")
+
         # Read database connection arguments from the settings file
         databaseOperation = pgModule.DatabaseOperation()
         self.connectionArguments = databaseOperation.readDatabaseSettingsFromFile('settings.dat')
@@ -78,6 +82,10 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
+        # Actions
+        # Menu: Tietokanta > Palvelinasetukset...
+        self.actionServerSettings.triggered.connect(self.openSettingsDialog)
+        
         # Signal when a page is opened
         self.pageTab = self.tabWidget
         self.pageTab.currentChanged.connect(self.populateAllPages)
@@ -86,6 +94,11 @@ class MultiPageMainWindow(QMainWindow):
         self.populateAllPages()
 
     # SLOTS
+    # Modify and save database settings - Tietokanta > Palvelinasetukset...
+    def openSettingsDialog(self):
+        dialog = serverSettingsDialog.DBSettingsDialog()
+        dialog.exec()
+
 
     # Create an alert dialog for critical failures, eg no database connection established
     def alert(self, windowTitle, alertMsg, additionalMsg, details):
@@ -303,6 +316,8 @@ class MultiPageMainWindow(QMainWindow):
                 '{animal}', '{gender}', '{ageGroup}', '{additionalInfo}'"""
             sqlClauseEnd = ");"
             sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
+
+        # Check for conversion errors
         except Exception as error:
             errorOccured = True
             self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
