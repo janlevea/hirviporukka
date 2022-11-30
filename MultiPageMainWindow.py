@@ -8,6 +8,7 @@ import sys # Needed for starting the application
 from PyQt5.QtWidgets import * # All widgets
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import * # FIXME: Everything, change to invidual components 
+from PyQt5.QtGui import QIcon
 # Own modules
 from datetime import date
 import pgModule
@@ -25,7 +26,9 @@ class MultiPageMainWindow(QMainWindow):
         loadUi("MultiPageMainWindow.ui", self)
         
         # Set window title
-        self.setWindowTitle("Jahtidata")
+        self.setWindowTitle("Jahtirekisteri")
+        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
 
         # Read database connection arguments from the settings file
         databaseOperation = pgModule.DatabaseOperation()
@@ -82,13 +85,19 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
-        # TODO: Add about and manual dialogs
-        # About has been started, no idea for manual yet. Maybe PDF file.
+        # TODO: Create manual dialog (current is a placeholder)
+        # No idea for manual yet. HTML file?.. Maybe PDF file.
 
         # Actions
         # Menu: Tietokanta > Palvelinasetukset...
         self.actionServerSettings.triggered.connect(self.openSettingsDialog)
         
+        # Menu: Tietoa > Ohjelma...
+        self.actionAboutProgram.triggered.connect(self.openAboutDialog)
+
+        # Menu: Tietoa > Käyttöohje...
+        self.actionManual.triggered.connect(self.openManualDialog)
+
         # Signal when a page is opened
         self.pageTab = self.tabWidget
         self.pageTab.currentChanged.connect(self.populateAllPages)
@@ -102,6 +111,15 @@ class MultiPageMainWindow(QMainWindow):
         dialog = dialogWindows.DBSettingsDialog()
         dialog.exec()
 
+    # Menu: Tietoa > Ohjelma...
+    def openAboutDialog(self):
+        dialog = dialogWindows.AboutDialog()
+        dialog.exec()
+
+    # Menu: Tietoa > Käyttöohje...
+    def openManualDialog(self):
+        dialog = dialogWindows.ManualDialog()
+        dialog.exec()
 
     # Create an alert dialog for critical failures, eg no database connection established
     def alert(self, windowTitle, alertMsg, additionalMsg, details):

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="resources">
+    <file alias="logoNoText">docs/Pictures/logo_ilman_tekstia_Square310x310Logo.scale-150.png</file>
+  </qresource>
+</RCC>

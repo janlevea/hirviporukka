@@ -979,7 +979,7 @@
            <string>Poista jäsen</string>
           </property>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -1006,7 +1006,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>170</x>
@@ -1033,7 +1033,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -1060,7 +1060,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>270</x>
@@ -1087,7 +1087,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>150</x>
@@ -1114,7 +1114,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -1187,12 +1187,12 @@
   </action>
   <action name="actionAboutProgram">
    <property name="text">
-    <string>Ohjelma</string>
+    <string>Ohjelma...</string>
    </property>
   </action>
   <action name="actionManual">
    <property name="text">
-    <string>Käyttöohje</string>
+    <string>Käyttöohje...</string>
    </property>
   </action>
  </widget>
@@ -1226,6 +1226,8 @@
   <tabstop>licenseSavePushButton</tabstop>
   <tabstop>licenseSummaryTableWidget</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

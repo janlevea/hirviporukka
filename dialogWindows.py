@@ -2,6 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtGui import QIcon
 from PyQt5.uic import loadUi
 
 import pgModule
@@ -20,6 +21,9 @@ class DialogTestMainWindow(QMainWindow):
         aboutDialog = AboutDialog()
         aboutDialog.exec()
 
+        manualDialog = ManualDialog()
+        manualDialog.exec()
+
 # A class for a dialog to save database settings
 class DBSettingsDialog(QDialog):
     """Creates a dialog to save database settings"""
@@ -31,6 +35,7 @@ class DBSettingsDialog(QDialog):
         loadUi("serverSettingsDialog.ui", self)
 
         self.setWindowTitle('Tietokantapalvelimen asetukset')
+        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
         # Elements
         self.hostLE = self.serverHostLineEdit
@@ -99,6 +104,7 @@ class AboutDialog(QDialog):
         loadUi("aboutDialog.ui", self)
 
         self.setWindowTitle('Tietoa ohjelmasta')
+        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
         # Elements
         self.closePB = self.closePushButton
@@ -107,9 +113,35 @@ class AboutDialog(QDialog):
         self.closePB.clicked.connect(self.closeDialog)
 
     # Slots
-    # Peru button closes the dialog
+    # Sulje button closes the dialog
     def closeDialog(self):
         self.close()
+
+# A class for manual dialog
+# TODO: Create manual dialog.. This is only a placeholder, with logo and close button.
+class ManualDialog(QDialog):
+    """Creates manual dialog"""
+
+    # Constructor
+    def __init__(self):
+        super().__init__()
+
+        loadUi("manualDialog.ui", self)
+
+        self.setWindowTitle('Käyttöohje')
+        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        # Elements
+        self.closePB = self.closePushButton
+
+        # Signals
+        self.closePB.clicked.connect(self.closeDialog)
+
+    # Slots
+    # Sulje button closes the dialog
+    def closeDialog(self):
+        self.close()
+
 
 # Tests
 if __name__ == "__main__":
