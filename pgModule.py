@@ -8,6 +8,7 @@ import psycopg2  # For PostgreSQL
 import datetime  # For handling date and time values
 import decimal  # For handling decimal datatypes with extreme precision
 import json  # For converting settings to JSON format
+import config
 
 # CLASS DEFINITIONS
 # -----------------
@@ -75,6 +76,43 @@ class DatabaseOperation():
         connectionArgumentDict = json.load(settingsFile)
         settingsFile.close()
         return connectionArgumentDict
+
+    def testConnection(self):
+        # FIXME: Program doesn't work if wrong postgres settings are given
+        # It keeps spamming Tietokannan käsittely ei onnistunut exception
+        connectionParms = self.readDatabaseSettingsFromFile(config.DBSETTINGS_FILE)
+        try:
+            # Connect to the database and set error parameters
+            dbconnection = psycopg2.connect(
+                database = connectionParms["database"],
+                user = connectionParms["user"],
+                password = connectionParms["password"],
+                host = connectionParms["server"],
+                port = connectionParms["port"]
+            )
+            self.errorCode = 0
+            self.errorMessage = "Yhdistettiin tietokantaan"
+            self.detailedMessage = "Connected to database successfully"
+
+            # Create a cursor to retrieve data from the table
+            with dbconnection.cursor() as cursor:
+                cursor.execute("SELECT version();")
+                version_number = cursor.fetchone() # Read result from cursor (1 row)
+                print("PostgreSQL:n versio on ", version_number) 
+
+                # Set error values
+                self.errorCode = 0
+                self.errorMessage = "Luettiin versionumero onnistuneesti"
+                self.detailedMessage = "Read Postgres version number successfully."
+        except (Exception, psycopg2.Error) as error:
+            # Set error values
+            self.errorCode = 1
+            self.errorMessage = "Tietokannan käsittely ei onnistunut"
+            self.detailedMessage = str(error)
+        finally:
+            if self.errorCode == 0:
+                dbconnection.close()
+                print(connectionParms)
 
     # -- Get all rows from a given table
     def getAllRowsFromTable(self, connectionArgs, table):
@@ -250,7 +288,6 @@ class DatabaseOperation():
                 dbconnection.commit()
                 
         except (Exception, psycopg2.Error) as error:
-
             # Set error values 
             self.errorCode = 1 # TODO: Design a set of error codes to use with this module
             self.errorMessage = 'Tietokannan käsittely ei onnistunut'
@@ -306,21 +343,24 @@ class DatabaseOperation():
 
 # LOCAL TESTS, REMOVE WHEN FINISHED DESIGNING THE MODULE
 if __name__ == "__main__":
+    DBOperation1 = DatabaseOperation()
+    DBOperation1.testConnection()
+
     # Lets create a DatabaseOperation object
-    testOperation = DatabaseOperation()
+    # testOperation = DatabaseOperation()
     # Create a dictionary for connection settings using defaults
-    dictionary = testOperation.createConnectionArgumentDict(
-        'metsastys', 'sovellus', 'Q2werty')
+    # dictionary = testOperation.createConnectionArgumentDict(
+        # 'metsastys', 'sovellus', 'Q2werty')
     # print(dictionary)
     # Save those settings to file
-    testOperation.saveDatabaseSettingsToFile('dbsettings.json', dictionary)
+    # testOperation.saveDatabaseSettingsToFile(config.DBSETTINGS_FILE, dictionary)
     # Read settings back from the file
-    settingsRead = testOperation.readDatabaseSettingsFromFile('dbsettings.json')
+    # settingsRead = testOperation.readDatabaseSettingsFromFile(config.DBSETTINGS_FILE)
     
     # Get all rows from test table
-    testOperation.getAllRowsFromTable(settingsRead, "public.pgmodule_test")
+    # testOperation.getAllRowsFromTable(settingsRead, "public.pgmodule_test")
 
-    print(testOperation.resultSet)
+    # print(testOperation.resultSet)
 
     # # Test insert operation with a sql clause
     # sqlClause = "INSERT INTO public.pgmodule_test(etunimi, sukunimi, ika) VALUES ('Jonne', 'Janttari', 17);"
@@ -348,7 +388,7 @@ port = "5432"
 try:
     # Create a connection object
     dbaseconnection = psycopg2.connect(database=database, user=user, password=password,
-                                      host=host, port=port)
+                                    host=host, port=port)
     
     # Create a cursor to execute commands and retrieve result set
     cursor = dbaseconnection.cursor()
