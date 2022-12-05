@@ -8,10 +8,23 @@ import psycopg2  # For PostgreSQL
 import datetime  # For handling date and time values
 import decimal  # For handling decimal datatypes with extreme precision
 import json  # For converting settings to JSON format
+
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
 import config
+import dialogWindows
+
 
 # CLASS DEFINITIONS
 # -----------------
+class PGModuleTestMainWindow(QMainWindow):
+    """Main Window for testing PGModule with dialogs"""
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Pääikkuna pgModule.py:n testaukseen')
+        DBOperation1 = DatabaseOperation()
+        DBOperation1.testConnection()
+
 class DatabaseOperation():
     """Creates a connection to PostgreSQL database and
     executes various SQL commands"""
@@ -109,10 +122,19 @@ class DatabaseOperation():
             self.errorCode = 1
             self.errorMessage = "Tietokannan käsittely ei onnistunut"
             self.detailedMessage = str(error)
+            dialogWindows.alert("Tietokantavirhe", "Tietokantavirhe", self.errorMessage, self.detailedMessage)
+            dialog = dialogWindows.DBSettingsDialog()
+            dialog.exec()
+            if dialog.serverCancelPushButton.pressed():
+                dbconnection.close()
+                
         finally:
             if self.errorCode == 0:
                 dbconnection.close()
                 print(connectionParms)
+            else:
+                # If user presses peru or x, close application. Currently it becomes endless error-dialog loop
+                self.testConnection()
 
     # -- Get all rows from a given table
     def getAllRowsFromTable(self, connectionArgs, table):
@@ -343,8 +365,10 @@ class DatabaseOperation():
 
 # LOCAL TESTS, REMOVE WHEN FINISHED DESIGNING THE MODULE
 if __name__ == "__main__":
-    DBOperation1 = DatabaseOperation()
-    DBOperation1.testConnection()
+    testApp = QApplication(sys.argv)
+    testMainWindow = PGModuleTestMainWindow()
+    testMainWindow.show()
+    testApp.exec()
 
     # Lets create a DatabaseOperation object
     # testOperation = DatabaseOperation()
