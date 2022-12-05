@@ -85,6 +85,19 @@ class MultiPageMainWindow(QMainWindow):
         self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
         self.licenseSummaryTW = self.licenseSummaryTableWidget
 
+        # Administration page (Ylläpito)
+        # Member (Jäsen)
+        self.admMembFirstNameLE = self.firstNameLineEdit
+        self.admMembLastNameLE = self.lastNameLineEdit
+        self.admMembAdressLE = self.adressLineEdit
+        self.admMembCityLE = self.cityLineEdit
+        self.admMembZipCodeLE = self.zipCodeLineEdit
+        self.admMembPhoneNumLE = self.phoneNumberLineEdit
+        self.admMembSavePB = self.memberSavePushButton
+        self.admMembSavePB.clicked.connect(self.admAddMember) # Signal
+        self.admMembDelCB = self.memberDeleteComboBox
+        self.admMembDelPB = self.memberDeletePushButton
+
         # TODO: Create manual dialog (current is a placeholder)
         # No idea for manual yet. HTML file?.. Maybe PDF file.
 
@@ -100,6 +113,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Signal when a page is opened
         self.pageTab = self.tabWidget
+        # TODO: Don't always populate all pages. Populate only visible page.
         self.pageTab.currentChanged.connect(self.populateAllPages)
 
         # Signals other than emitted by UI elements
@@ -270,8 +284,20 @@ class MultiPageMainWindow(QMainWindow):
             self.shareGroupIdList = prepareData.prepareComboBox(databaseOperation3, self.shareGroupCB, 2, 0)
 
     def populateLicensePage(self):
+        # TODO: Populate license table widget
         # Set default license year to current year
         self.licenseYearLE.setText(str(self.currentDate.year))
+
+        # Read data from table lupa
+        databaseOperationLuvat = pgModule.DatabaseOperation()
+        databaseOperationLuvat.getAllRowsFromTable(self.connectionArguments, "public.lupalista")
+
+        # Check if error has occured
+        if databaseOperationLuvat.errorCode != 0:
+            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperationLuvat.errorMessage, databaseOperationLuvat.detailedMessage)
+        else:
+            prepareData.prepareTable(databaseOperationLuvat, self.licenseSummaryTW)
 
         # Read data from table elain
         databaseOperation1 = pgModule.DatabaseOperation()
@@ -368,26 +394,25 @@ class MultiPageMainWindow(QMainWindow):
     def saveLicense(self):
         errorOccured = False
         try:
-            shotByChosenItemIx = self.shotByCB.currentIndex()
-            shotById = self.shotByIdList[shotByChosenItemIx]
-            shootingDay = self.shotDateDE.date().toPyDate()
-            shootingPlace = self.shotLocationLE.text()
-            animal = self.shotAnimalCB.currentText()
-            ageGroup = self.shotAgeGroupCB.currentText()
-            gender = self.shotGenderCB.currentText()
-            weight = float(self.shotWeightLE.text())
-            useIx = self.shotUsageCB.currentIndex()
-            use = self.shotUsageIdList[useIx]
-            additionalInfo = self.shotAddInfoTE.toPlainText()
+            lYear = int(self.licenseYearLE.text())
+            lAnimal = self.licenseAnimalCB.currentText()
+            lAgeGroup = self.licenseAgeGroupCB.currentText()
+            lGender = self.licenseGenderCB.currentText()
+            lAmount = int(self.licenseAmountLE.text())
 
-            # Insert data into kaato table
-            sqlClauseBeginning = "INSERT INTO public.kaato(\
-                jasen_id, kaatopaiva, ruhopaino, paikka_teksti,\
-                kasittelyid, elaimen_nimi, sukupuoli, ikaluokka, lisatieto)\
+            """
+                self.licenseSavePushBtn = self.licenseSavePushButton
+                self.licenseSavePushBtn.clicked.connect(self.saveLicense) # Signal
+                self.licenseSummaryTW = self.licenseSummaryTableWidget
+            """
+            # Insert data into license table
+            sqlClauseBeginning = "INSERT INTO public.lupa(\
+                seura_id, lupavuosi, elaimen_nimi, sukupuoli,\
+                ikaluokka, maara)\
                 VALUES ("
-            sqlClauseValues = f"""
-                {shotById}, '{shootingDay}', {weight}, '{shootingPlace}', {use},
-                '{animal}', '{gender}', '{ageGroup}', '{additionalInfo}'"""
+            # TODO: seura_id is set to 1. assuming there is only one seura.
+            # There is no ui element to choose a seura from.
+            sqlClauseValues = f"1, {lYear}, '{lAnimal}', '{lGender}', '{lAgeGroup}', {lAmount}"
             sqlClauseEnd = ");"
             sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
         except Exception as error:
@@ -405,11 +430,12 @@ class MultiPageMainWindow(QMainWindow):
                         databaseOperation.errorMessage, databaseOperation.detailedMessage)
                 else:
                     # Update the page to show new data and clear previous data from elements
-                    self.populateKillPage()
-                    self.shotLocationLE.clear()
-                    self.shotWeightLE.clear()
-                    self.shotAddInfoTE.clear()
-                    # self.shotDateDE
+                    self.populateLicensePage()
+                    self.licenseYearLE.clear()
+                    self.licenseAnimalCB.clear()
+                    self.licenseAgeGroupCB.clear()
+                    self.licenseGenderCB.clear()
+                    self.licenseAmountLE.clear()
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
