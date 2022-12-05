@@ -58,7 +58,7 @@ class DatabaseOperation():
             connectionArgs (dict): Connection arguments in key-value pairs
         """
         settingsFile = open(file, 'w')
-        json.dump(connectionArgs, settingsFile)
+        json.dump(connectionArgs, settingsFile, indent=4)
         settingsFile.close()
 
     # -- Read connection arguments from the settings file
@@ -113,6 +113,9 @@ class DatabaseOperation():
                 self.errorCode = 0
                 self.errorMessage = "Luettiin taulu onnistuneesti"
                 self.detailedMessage = "Read all data from the table"
+
+        # FIXME: Program doesn't work if wrong postgres settings are given
+        # It keeps spamming Tietokannan käsittely ei onnistunut exception
 
         except (Exception, psycopg2.Error) as error:
             # Set error values
