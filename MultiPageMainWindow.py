@@ -14,6 +14,7 @@ from datetime import date
 import pgModule
 import prepareData
 import dialogWindows
+import config
 
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
@@ -32,7 +33,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Read database connection arguments from the settings file
         databaseOperation = pgModule.DatabaseOperation()
-        self.connectionArguments = databaseOperation.readDatabaseSettingsFromFile('dbsettings.json')
+        self.connectionArguments = databaseOperation.readDatabaseSettingsFromFile(config.DBSETTINGS_FILE)
 
         # UI ELEMENTS TO PROPERTIES
         # -------------------------

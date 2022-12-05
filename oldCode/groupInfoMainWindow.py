@@ -11,6 +11,7 @@ import ui_groupInfoMainWindow
 
 import pgModule
 import prepareData
+import config
 
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
@@ -46,7 +47,7 @@ class GroupMainWindow(QMainWindow):
     def agentRefreshData(self):
         # Read data from view jaetut_lihat
         databaseOperation1 = pgModule.DatabaseOperation()
-        connectionArguments = databaseOperation1.readDatabaseSettingsFromFile('dbsettings.json')
+        connectionArguments = databaseOperation1.readDatabaseSettingsFromFile(config.DBSETTINGS_FILE)
         databaseOperation1.getAllRowsFromTable(connectionArguments, "public.jaetut_lihat")
 
         # Read data from view jakoryhma_yhteenveto, no need to read con args twice

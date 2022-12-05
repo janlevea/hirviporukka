@@ -7,6 +7,8 @@ from PyQt5.uic import loadUi
 
 import pgModule
 
+import config
+
 class DialogTestMainWindow(QMainWindow):
     """Main Window for testing dialogs"""
     def __init__(self):
@@ -51,7 +53,7 @@ class DBSettingsDialog(QDialog):
         # Create an object to use setting methods
         self.databaseOperation = pgModule.DatabaseOperation() # Needed in slots -> self
         currentSettings = self.databaseOperation.readDatabaseSettingsFromFile(
-            'dbsettings.json')  # Read current settings, needed only in the constructor
+            config.DBSETTINGS_FILE)  # Read current settings, needed only in the constructor
         self.hostLE.setText(currentSettings['server'])  # Server's host name
         # Port number, spin box uses integer values
         self.portSB.setValue(int(currentSettings['port']))
@@ -61,7 +63,7 @@ class DBSettingsDialog(QDialog):
         self.passwordLE.setText("")
         self.passwordLE.setEchoMode(QLineEdit.Password)
 
-        self.fileNameLE.setText("dbsettings.json")
+        self.fileNameLE.setText(config.DBSETTINGS_FILE)
 
         # Signals
         self.savePB.clicked.connect(self.saveSettings)
@@ -86,7 +88,7 @@ class DBSettingsDialog(QDialog):
         
         # Save arguments to a json file
         self.databaseOperation.saveDatabaseSettingsToFile(
-            'dbsettings.json', newSettings)
+            config.DBSETTINGS_FILE, newSettings)
         self.close()
 
     # Peru button closes the dialog
