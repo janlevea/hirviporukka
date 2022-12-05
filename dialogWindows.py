@@ -1,13 +1,32 @@
 import sys
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.uic import loadUi
 
 import pgModule
 
 import config
+
+# Create an alert dialog for critical failures, eg no database connection established
+def alert(windowTitle, alertMsg, additionalMsg, details):
+    """Creates a message box for critical errors
+
+    Args:
+        windowTitle (str): Title of the message box
+        alertMsg (str): Short description of the error in finnish
+        additionalMsg (str): Additional information in finnish
+        details (str): Details about the error in english
+    """
+    alertDialog = QMessageBox() # Create a message box object
+    alertDialog.setWindowTitle(windowTitle) # Add appropriate title to the message box
+    alertDialog.setIcon(QMessageBox.Critical) # Set icon to critical
+    alertDialog.setText(alertMsg) # Basic information about the error in Finnish
+    alertDialog.setInformativeText(additionalMsg) # Additional information about the error in Finnish
+    alertDialog.setDetailedText(details) # Technical details in English (from psycopg2)
+    alertDialog.setStandardButtons(QMessageBox.Ok) # Only OK is needed to close the dialog
+    alertDialog.exec_() # Open the message box
 
 class DialogTestMainWindow(QMainWindow):
     """Main Window for testing dialogs"""

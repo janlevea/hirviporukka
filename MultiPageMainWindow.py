@@ -135,25 +135,6 @@ class MultiPageMainWindow(QMainWindow):
         dialog = dialogWindows.ManualDialog()
         dialog.exec()
 
-    # Create an alert dialog for critical failures, eg no database connection established
-    def alert(self, windowTitle, alertMsg, additionalMsg, details):
-        """Creates a message box for critical errors
-
-        Args:
-            windowTitle (str): Title of the message box
-            alertMsg (str): Short description of the error in finnish
-            additionalMsg (str): Additional information in finnish
-            details (str): Details about the error in english
-        """
-        alertDialog = QMessageBox() # Create a message box object
-        alertDialog.setWindowTitle(windowTitle) # Add appropriate title to the message box
-        alertDialog.setIcon(QMessageBox.Critical) # Set icon to critical
-        alertDialog.setText(alertMsg) # Basic information about the error in Finnish
-        alertDialog.setInformativeText(additionalMsg) # Additional information about the error in Finnish
-        alertDialog.setDetailedText(details) # Technical details in English (from psycopg2)
-        alertDialog.setStandardButtons(QMessageBox.Ok) # Only OK is needed to close the dialog
-        alertDialog.exec_() # Open the message box
-
     # A method to populate summaryPage's table widgets
     def populateSummaryPage(self):
         # Read data from view jaetut_lihat
@@ -162,7 +143,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation1.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
         else:
             prepareData.prepareTable(databaseOperation1, self.summaryMeatSharedTW)
@@ -173,7 +154,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation2.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
         else:
             prepareData.prepareTable(databaseOperation2, self.summaryGroupSummaryTW)
@@ -187,7 +168,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation1.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
         else:
             prepareData.prepareTable(databaseOperation1, self.shotKillsTW)
@@ -198,7 +179,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation2.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
         else: 
             self.shotByIdList = prepareData.prepareComboBox(databaseOperation2, self.shotByCB, 1, 0)
@@ -209,7 +190,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation3.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation3.errorMessage, databaseOperation3.detailedMessage)
         else:
             self.shotAnimalText = prepareData.prepareComboBox(databaseOperation3, self.shotAnimalCB, 0, 0)
@@ -220,7 +201,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation4.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation4.errorMessage, databaseOperation4.detailedMessage)
         else:
             self.shotAgeGroupText = prepareData.prepareComboBox(databaseOperation4, self.shotAgeGroupCB, 0, 0)
@@ -231,7 +212,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation5.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation5.errorMessage, databaseOperation5.detailedMessage)
         else:
             self.shotGenderText = prepareData.prepareComboBox(databaseOperation5, self.shotGenderCB, 0, 0)
@@ -242,7 +223,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation6.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation6.errorMessage, databaseOperation6.detailedMessage)
         else:
             self.shotUsageIdList = prepareData.prepareComboBox(databaseOperation6, self.shotUsageCB, 1, 0)
@@ -256,7 +237,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation1.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
         else:
             prepareData.prepareTable(databaseOperation1, self.shareKillsTW)
@@ -267,7 +248,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation2.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
         else: 
             self.sharePortionText = prepareData.prepareComboBox(databaseOperation2, self.sharePortionCB, 0, 0)
@@ -278,7 +259,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation3.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation3.errorMessage, databaseOperation3.detailedMessage)
         else: 
             self.shareGroupIdList = prepareData.prepareComboBox(databaseOperation3, self.shareGroupCB, 2, 0)
@@ -293,7 +274,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperationLuvat.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperationLuvat.errorMessage, databaseOperationLuvat.detailedMessage)
         else:
             prepareData.prepareTable(databaseOperationLuvat, self.licenseSummaryTW)
@@ -304,7 +285,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation1.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
         else:
             self.licenseAnimalText = prepareData.prepareComboBox(databaseOperation1, self.licenseAnimalCB, 0, 0)
@@ -315,7 +296,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Check if error has occured
         if databaseOperation2.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
         else: 
             self.licenseAgeGroupText = prepareData.prepareComboBox(databaseOperation2, self.licenseAgeGroupCB, 0, 0)
@@ -326,7 +307,7 @@ class MultiPageMainWindow(QMainWindow):
         
         # Check if error has occured
         if databaseOperation3.errorCode != 0:
-            self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
             databaseOperation3.errorMessage, databaseOperation3.detailedMessage)
         else: 
             self.licenseGenderText = prepareData.prepareComboBox(databaseOperation3, self.licenseGenderCB, 0, 0)
@@ -388,7 +369,7 @@ class MultiPageMainWindow(QMainWindow):
         # Check for conversion errors
         except Exception as error:
             errorOccured = True
-            self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
+            dialogWindows.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
         finally:
             if not errorOccured:
                 print(sqlClause)
@@ -397,7 +378,7 @@ class MultiPageMainWindow(QMainWindow):
                 databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
                 
                 if databaseOperation.errorCode != 0:
-                    self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+                    dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
                         databaseOperation.errorMessage, databaseOperation.detailedMessage)
                 else:
                     # Update the page to show new data and clear previous data from elements
@@ -438,7 +419,7 @@ class MultiPageMainWindow(QMainWindow):
             sqlClause = sqlClauseBeginning + sqlClauseValues + sqlClauseEnd
         except Exception as error:
             errorOccured = True
-            self.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
+            dialogWindows.alert('Virheellinen syöte', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
         finally:
             if not errorOccured:
                 print(sqlClause)
@@ -447,7 +428,7 @@ class MultiPageMainWindow(QMainWindow):
                 databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
                 
                 if databaseOperation.errorCode != 0:
-                    self.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+                    dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
                         databaseOperation.errorMessage, databaseOperation.detailedMessage)
                 else:
                     # Update the page to show new data and clear previous data from elements
