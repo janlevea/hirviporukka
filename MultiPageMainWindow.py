@@ -113,8 +113,7 @@ class MultiPageMainWindow(QMainWindow):
 
         # Signal when a page is opened
         self.pageTab = self.tabWidget
-        # TODO: Don't always populate all pages. Populate only visible page.
-        self.pageTab.currentChanged.connect(self.populateAllPages)
+        self.pageTab.currentChanged.connect(self.pageChanged, self.pageTab.currentIndex())
 
         # Signals other than emitted by UI elements
         self.populateAllPages()
@@ -284,7 +283,6 @@ class MultiPageMainWindow(QMainWindow):
             self.shareGroupIdList = prepareData.prepareComboBox(databaseOperation3, self.shareGroupCB, 2, 0)
 
     def populateLicensePage(self):
-        # TODO: Populate license table widget
         # Set default license year to current year
         self.licenseYearLE.setText(str(self.currentDate.year))
 
@@ -337,6 +335,28 @@ class MultiPageMainWindow(QMainWindow):
         self.populateKillPage()
         self.populateSharePage()
         self.populateLicensePage()
+
+    def pageChanged(self, index):
+        # Yhteenveto = 0
+        # Kaato = 1
+        # Lihanjako = 2
+        # Luvat = 3
+        # Ylläpito = 4
+        if index == 0:
+            self.populateSummaryPage()
+        elif index == 1:
+            self.populateKillPage()
+        elif index == 2:
+            self.populateSharePage()
+        elif index == 3:
+            self.populateLicensePage()
+        elif index == 4:
+            pass
+        
+        # Testi:
+        # QMessageBox.information(self,
+        #     "Tab Index Changed!",
+        #     "Current Tab Index: " + str(index)) #changed!
 
     def saveShot(self):
         errorOccured = False
@@ -436,6 +456,9 @@ class MultiPageMainWindow(QMainWindow):
                     self.licenseAgeGroupCB.clear()
                     self.licenseGenderCB.clear()
                     self.licenseAmountLE.clear()
+
+    def admAddMember(self):
+        print("Moi!")
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
