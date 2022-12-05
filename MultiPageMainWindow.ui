@@ -953,7 +953,7 @@
            <string>Lisää jäsen</string>
           </property>
          </widget>
-         <widget class="QComboBox" name="memeberDeleteComboBox">
+         <widget class="QComboBox" name="memberDeleteComboBox">
           <property name="geometry">
            <rect>
             <x>10</x>
