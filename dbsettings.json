@@ -1,7 +1,7 @@
 {
-    "server": "localhost", 
-    "port": "5432", 
-    "database": "metsastys", 
-    "user": "sovellus", 
+    "server": "localhost",
+    "port": "5432",
+    "database": "metsastys",
+    "user": "sovellus",
     "password": "Q2werty"
 }
