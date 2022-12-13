@@ -143,8 +143,10 @@ class SankeyDialog(QDialog):
         self.sankeyWebV = self.sankeyWebEngineView
 
         # figure = figures.testChart()
-        # plotly.offline.plot(figure, filename='meatstreams.html') # Write the chart to a html file
-        # url = QUrl('file:///meatstreams.html') # Create a relative url to the file
+        # htmlFile = 'meatstreams.html'
+        # urlString = f'file:///{htmlFile}'
+        ## figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
+        # url = QUrl(urlString) # Create a relative url to the file
         # self.sankeyWebV.load(url) # Load it into the web view element
 
 # A class for about dialog

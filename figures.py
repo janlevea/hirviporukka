@@ -4,6 +4,7 @@
 # LIBRARIES AND MODULES
 # ----------------------
 import plotly.graph_objects as charts
+import plotly.offline as offline
 
 # FUNCTIONS
 
@@ -13,13 +14,15 @@ def testChart():
     Returns:
         obj: plotly figure object
     """
+    # An HTML file for saving the plot when offline
+    htmlFileName = 'meatstreams.html'
+
     # Labels for the sankey chart (from a view)
     sourceLabels = ['Hirvi', 'Peura'] # Where the meat is coming from
-    targetLabels = ['Ryhmä 1', 'Ryhmä 2', 'Ryhmä 3'] # What group has received meat
+    targetLabels = ['Ryhmä 1', 'Ryhmä 2', 'Ryhmä 3'] # Which group has received meat
     allLabels = sourceLabels + targetLabels # All labels for the chart in a single list
-    print(allLabels)
 
-    # Simulation Data (list of tuples), in relity the data should come from the database view 
+    # Simulation Data (list of tuples), in reality the data should come from the database view 
     dBdata = [('Hirvi', 'Ryhmä 1', 100),
         ('Hirvi', 'Ryhmä 2', 200),
         ('Hirvi', 'Ryhmä 3', 100),
@@ -35,14 +38,12 @@ def testChart():
     # All label colors in a single list for the chart
     allColors = sourceNodeColors + targetNodeColors 
 
-    rows = len(dBdata)
-    print(rows)
-    # Empty lists for label indexses and values
+    # Empty lists for label indexes and values
     sankeySources = []
     sankeyTargets = []
     sankeyValues = []
 
-    # Create Indexes for sankey chart
+    # Create indexes for the Sankey chart
     for row in dBdata:
         tupleSource = row[0]
         tupleTarget = row[1]
@@ -52,8 +53,6 @@ def testChart():
         sankeySources.append(sourceIx)
         sankeyTargets.append(targetIx)
         sankeyValues.append(tupleValue)
-
-    print(sankeySources)
 
     figure = charts.Figure(data=[charts.Sankey(
         node = dict(
@@ -72,10 +71,10 @@ def testChart():
 
     figure.update_layout(title_text="Lihanjakotilanne", font_size=16)
     # figure.update_traces(orientation='v', selector=dict(type='sankey'))
-    return figure
+    offline.plot(figure, filename= htmlFileName) # Write the chart to an html file
     
 
-def createSankeyChart(dBData, sourceColors, targetColors, linkCololors, heading):
+def createSankeyChart(dBData, sourceColors, targetColors, linkColors, heading):
     """Creates a Sankey chart from database data
 
     Args:
@@ -104,12 +103,12 @@ def createSankeyChart(dBData, sourceColors, targetColors, linkCololors, heading)
     # All label colors in a single list for the chart
     allColors = sourceNodeColors + targetNodeColors 
 
-    # Empty lists for label indexses and values
+    # Empty lists for label indexes and values
     sankeySources = []
     sankeyTargets = []
     sankeyValues = []
 
-    # Create Indexes for sankey chart
+    # Create indexes for the Sankey chart
     for row in dBData:
         tupleSource = row[0]
         tupleTarget = row[1]
@@ -134,10 +133,17 @@ def createSankeyChart(dBData, sourceColors, targetColors, linkCololors, heading)
             source = sankeySources, 
             target = sankeyTargets,
             value = sankeyValues,
-            color = linkCololors
+            color = linkColors
     ))])
 
     figure.update_layout(title_text=heading, font_size=16)
     # figure.update_traces(orientation='v', selector=dict(type='sankey'))
     return figure
     
+def createOfflineFile(figure, htmlFileName):
+    """Creates an html file from the chart for offline use
+    Args:
+        figure (obj): The chart to bring offline
+        htmlFileName (str): name of the file to save into disk
+    """
+    offline.plot(figure, filename=htmlFileName) # Write the chart to an html file
