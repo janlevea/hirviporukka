@@ -137,22 +137,26 @@ class SankeyDialog(QDialog):
 
         self.setWindowTitle('Sankey-kaavio')
 
-        htmlFile = 'meatstreams.html'
         # TODO: Add Mac to these checks?
         if platform.system() == "Linux":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
-            urlString = f'./{htmlFile}'
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
-            urlString = f'file:///{htmlFile}'
 
         # Elements
         self.sankeyWebV = self.sankeyWebEngineView
+        self.sankeyWebV.load(QUrl("http://google.fi"))
 
-        figure = figures.testChart()
-        figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
-        url = QUrl(urlString) # Create a relative url to the file
-        self.sankeyWebV.load(url) # Load it into the web view element
+        htmlFile = 'meatstreams.html'
+        # urlString = f'file:///{htmlFile}'
+        urlString = 'www.google.fi'
+        # figure = figures.testChart()
+        # figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
+        #url = QUrl(urlString) # Create a relative url to the file
+        #self.sankeyWebV.load("http://www.google.fi") # Load it into the web view element
+
+        # <string>file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html</string>
+        # self.sankeyWebEngineView.setUrl(QtCore.QUrl("file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html"))
 
 # A class for about dialog
 class AboutDialog(QDialog):

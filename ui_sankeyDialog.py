@@ -18,7 +18,7 @@ class Ui_sankeyDialog(object):
         self.sankeyWebEngineView = QtWebEngineWidgets.QWebEngineView(sankeyDialog)
         self.sankeyWebEngineView.setGeometry(QtCore.QRect(10, 10, 611, 581))
         self.sankeyWebEngineView.setStyleSheet("")
-        self.sankeyWebEngineView.setUrl(QtCore.QUrl("about:blank"))
+        self.sankeyWebEngineView.setUrl(QtCore.QUrl("file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html"))
         self.sankeyWebEngineView.setObjectName("sankeyWebEngineView")
 
         self.retranslateUi(sankeyDialog)

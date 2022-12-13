@@ -27,7 +27,7 @@
    </property>
    <property name="url">
     <url>
-     <string>about:blank</string>
+     <string>file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html</string>
     </url>
    </property>
   </widget>
