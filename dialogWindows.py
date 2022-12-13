@@ -143,7 +143,7 @@ class SankeyDialog(QDialog):
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
-        # FIXME: webview doesn't work on linux
+        # FIXME: webview doesn't work on linux. Didn't find a solution. Maybe just open the Sankey in a browser with a button in the GUI.
         # Elements
         self.sankeyWebV = self.sankeyWebEngineView
         self.sankeyWebV.load(QUrl("http://google.fi"))
