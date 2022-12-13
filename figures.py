@@ -146,4 +146,4 @@ def createOfflineFile(figure, htmlFileName):
         figure (obj): The chart to bring offline
         htmlFileName (str): name of the file to save into disk
     """
-    offline.plot(figure, filename=htmlFileName) # Write the chart to an html file
+    # offline.plot(figure, filename=htmlFileName) # Write the chart to an html file

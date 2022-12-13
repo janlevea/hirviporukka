@@ -4,9 +4,12 @@ import platform  # For detecting operating system for favicon path
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QUrl
+from PyQt5 import QtWebEngineWidgets
 from PyQt5.uic import loadUi
 import plotly
 
+import figures
 import pgModule
 
 import config
@@ -41,14 +44,14 @@ class DialogTestMainWindow(QMainWindow):
         sankeyDialog = SankeyDialog()
         sankeyDialog.exec()
 
-        dbSettingsDialog = DBSettingsDialog()
-        dbSettingsDialog.exec()
+        # dbSettingsDialog = DBSettingsDialog()
+        # dbSettingsDialog.exec()
 
-        aboutDialog = AboutDialog()
-        aboutDialog.exec()
+        # aboutDialog = AboutDialog()
+        # aboutDialog.exec()
 
-        manualDialog = ManualDialog()
-        manualDialog.exec()
+        # manualDialog = ManualDialog()
+        # manualDialog.exec()
 
 # A class for a dialog to save database settings
 class DBSettingsDialog(QDialog):
@@ -134,20 +137,22 @@ class SankeyDialog(QDialog):
 
         self.setWindowTitle('Sankey-kaavio')
 
+        htmlFile = 'meatstreams.html'
+        # TODO: Add Mac to these checks?
         if platform.system() == "Linux":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+            urlString = f'./{htmlFile}'
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+            urlString = f'file:///{htmlFile}'
 
         # Elements
         self.sankeyWebV = self.sankeyWebEngineView
 
-        # figure = figures.testChart()
-        # htmlFile = 'meatstreams.html'
-        # urlString = f'file:///{htmlFile}'
-        ## figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
-        # url = QUrl(urlString) # Create a relative url to the file
-        # self.sankeyWebV.load(url) # Load it into the web view element
+        figure = figures.testChart()
+        figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
+        url = QUrl(urlString) # Create a relative url to the file
+        self.sankeyWebV.load(url) # Load it into the web view element
 
 # A class for about dialog
 class AboutDialog(QDialog):

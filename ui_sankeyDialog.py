@@ -15,6 +15,11 @@ class Ui_sankeyDialog(object):
     def setupUi(self, sankeyDialog):
         sankeyDialog.setObjectName("sankeyDialog")
         sankeyDialog.resize(627, 609)
+        self.sankeyWebEngineView = QtWebEngineWidgets.QWebEngineView(sankeyDialog)
+        self.sankeyWebEngineView.setGeometry(QtCore.QRect(10, 10, 611, 581))
+        self.sankeyWebEngineView.setStyleSheet("")
+        self.sankeyWebEngineView.setUrl(QtCore.QUrl("about:blank"))
+        self.sankeyWebEngineView.setObjectName("sankeyWebEngineView")
 
         self.retranslateUi(sankeyDialog)
         QtCore.QMetaObject.connectSlotsByName(sankeyDialog)
@@ -22,3 +27,4 @@ class Ui_sankeyDialog(object):
     def retranslateUi(self, sankeyDialog):
         _translate = QtCore.QCoreApplication.translate
         sankeyDialog.setWindowTitle(_translate("sankeyDialog", "Sankey-kaavio"))
+from PyQt5 import QtWebEngineWidgets
