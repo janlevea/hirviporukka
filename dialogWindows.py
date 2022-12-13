@@ -143,6 +143,7 @@ class SankeyDialog(QDialog):
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
+        # FIXME: webview doesn't work on linux
         # Elements
         self.sankeyWebV = self.sankeyWebEngineView
         self.sankeyWebV.load(QUrl("http://google.fi"))
