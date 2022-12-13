@@ -1,9 +1,11 @@
 import sys
+import platform  # For detecting operating system for favicon path
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.uic import loadUi
+import plotly
 
 import pgModule
 
@@ -36,6 +38,9 @@ class DialogTestMainWindow(QMainWindow):
         self.setWindowTitle('Pääikkuna dialogien testaukseen')
 
         # Add dialogs to be tested here and run them as follows:
+        sankeyDialog = SankeyDialog()
+        sankeyDialog.exec()
+
         dbSettingsDialog = DBSettingsDialog()
         dbSettingsDialog.exec()
 
@@ -56,7 +61,11 @@ class DBSettingsDialog(QDialog):
         loadUi("serverSettingsDialog.ui", self)
 
         self.setWindowTitle('Tietokantapalvelimen asetukset')
-        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        if platform.system() == "Linux":
+            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+        else:
+            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
         # Elements
         self.hostLE = self.serverHostLineEdit
@@ -114,6 +123,30 @@ class DBSettingsDialog(QDialog):
     def closeDialog(self):
         self.close()
 
+# A class for a sankey-dialog
+class SankeyDialog(QDialog):
+    """Creates a dialog to show sankey-diagram"""
+    # Constructor
+    def __init__(self):
+        super().__init__()
+
+        loadUi("sankeyDialog.ui", self)
+
+        self.setWindowTitle('Sankey-kaavio')
+
+        if platform.system() == "Linux":
+            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+        else:
+            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        # Elements
+        self.sankeyWebV = self.sankeyWebEngineView
+
+        # figure = figures.testChart()
+        # plotly.offline.plot(figure, filename='meatstreams.html') # Write the chart to a html file
+        # url = QUrl('file:///meatstreams.html') # Create a relative url to the file
+        # self.sankeyWebV.load(url) # Load it into the web view element
+
 # A class for about dialog
 class AboutDialog(QDialog):
     """Creates about dialog"""
@@ -125,7 +158,11 @@ class AboutDialog(QDialog):
         loadUi("aboutDialog.ui", self)
 
         self.setWindowTitle('Tietoa ohjelmasta')
-        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        if platform.system() == "Linux":
+            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+        else:
+            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
         # Elements
         self.closePB = self.closePushButton
@@ -150,7 +187,11 @@ class ManualDialog(QDialog):
         loadUi("manualDialog.ui", self)
 
         self.setWindowTitle('Käyttöohje')
-        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        if platform.system() == "Linux":
+            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+        else:
+            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
         # Elements
         self.closePB = self.closePushButton
