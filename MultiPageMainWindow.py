@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import * # All widgets
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import * # FIXME: Everything, change to invidual components 
 from PyQt5.QtGui import QIcon
+import platform  # For detecting operating system for favicon path
+
 # Own modules
 from datetime import date
 import pgModule
@@ -28,7 +30,11 @@ class MultiPageMainWindow(QMainWindow):
         
         # Set window title
         self.setWindowTitle("Jahtirekisteri")
-        self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
+
+        if platform.system() == "Linux":
+            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
+        else:
+            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
 
 
         # Read database connection arguments from the settings file

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\JaniL\Documents\GitHub\hirviporukka_fork\hirviporukka\aboutDialog.ui'
+# Form implementation generated from reading ui file '/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/aboutDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,13 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(288, 481)
+        Dialog.resize(289, 481)
         self.labelLogo = QtWidgets.QLabel(Dialog)
         self.labelLogo.setGeometry(QtCore.QRect(20, 10, 250, 250))
         self.labelLogo.setMinimumSize(QtCore.QSize(250, 250))
         self.labelLogo.setMaximumSize(QtCore.QSize(250, 250))
         self.labelLogo.setText("")
-        self.labelLogo.setPixmap(QtGui.QPixmap("c:\\Users\\JaniL\\Documents\\GitHub\\hirviporukka_fork\\hirviporukka\\docs/Pictures/logo.png"))
+        self.labelLogo.setPixmap(QtGui.QPixmap("/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/docs/Pictures/logo.png"))
         self.labelLogo.setScaledContents(True)
         self.labelLogo.setObjectName("labelLogo")
         self.frame = QtWidgets.QFrame(Dialog)
@@ -39,6 +39,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.labelVersion.setFont(font)
+        self.labelVersion.setStyleSheet("color: rgb(0, 0, 0);")
         self.labelVersion.setAlignment(QtCore.Qt.AlignCenter)
         self.labelVersion.setObjectName("labelVersion")
         self.verticalLayout.addWidget(self.labelVersion)
@@ -46,6 +47,7 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.labelBy.setFont(font)
+        self.labelBy.setStyleSheet("color: rgb(0, 0, 0);")
         self.labelBy.setAlignment(QtCore.Qt.AlignCenter)
         self.labelBy.setObjectName("labelBy")
         self.verticalLayout.addWidget(self.labelBy)
@@ -53,9 +55,13 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.labelBy2.setFont(font)
+        self.labelBy2.setStyleSheet("color: rgb(0, 0, 0);")
         self.labelBy2.setAlignment(QtCore.Qt.AlignCenter)
         self.labelBy2.setObjectName("labelBy2")
         self.verticalLayout.addWidget(self.labelBy2)
+        self.labelBy.raise_()
+        self.labelVersion.raise_()
+        self.labelBy2.raise_()
         self.closePushButton = QtWidgets.QPushButton(Dialog)
         self.closePushButton.setGeometry(QtCore.QRect(20, 440, 251, 31))
         font = QtGui.QFont()
@@ -73,3 +79,4 @@ class Ui_Dialog(object):
         self.labelBy.setText(_translate("Dialog", "2022 Raseko"))
         self.labelBy2.setText(_translate("Dialog", "TiVi-koodarit"))
         self.closePushButton.setText(_translate("Dialog", "Sulje"))
+import resources_rc

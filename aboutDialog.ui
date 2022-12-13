@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>288</width>
+    <width>289</width>
     <height>481</height>
    </rect>
   </property>
@@ -79,6 +79,9 @@
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);</string>
+       </property>
        <property name="text">
         <string>Versio: 1.0</string>
        </property>
@@ -93,6 +96,9 @@
         <font>
          <pointsize>16</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);</string>
        </property>
        <property name="text">
         <string>2022 Raseko</string>
@@ -109,6 +115,9 @@
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);</string>
+       </property>
        <property name="text">
         <string>TiVi-koodarit</string>
        </property>
@@ -118,6 +127,9 @@
       </widget>
      </item>
     </layout>
+    <zorder>labelBy</zorder>
+    <zorder>labelVersion</zorder>
+    <zorder>labelBy2</zorder>
    </widget>
   </widget>
   <widget class="QPushButton" name="closePushButton">
