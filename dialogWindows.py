@@ -150,7 +150,8 @@ class AboutDialog(QDialog):
         self.close()
 
 # A class for manual dialog
-# TODO: Create manual dialog.. This is only a placeholder, with logo and close button.
+# TODO: Create manual dialog.. or open manual in web browser (better for Linux)
+# This is only a placeholder, with logo and close button.
 class ManualDialog(QDialog):
     """Creates manual dialog"""
 
