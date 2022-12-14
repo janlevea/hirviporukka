@@ -48,7 +48,8 @@ class MultiPageMainWindow(QMainWindow):
         # Set window title
         self.setWindowTitle("Jahtirekisteri")
 
-        if platform.system() == "Linux":
+        currentOS = platform.system()  # MacOS = Darwin
+        if currentOS == "Linux" or currentOS == "Darwin":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))

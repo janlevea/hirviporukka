@@ -58,8 +58,8 @@ class DBSettingsDialog(QDialog):
 
         self.setWindowTitle('Tietokantapalvelimen asetukset')
 
-        # TODO: Add Mac to these checks?
-        if platform.system() == "Linux":
+        currentOS = platform.system()  # MacOS = Darwin
+        if currentOS == "Linux" or currentOS == "Darwin":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
@@ -132,7 +132,8 @@ class AboutDialog(QDialog):
 
         self.setWindowTitle('Tietoa ohjelmasta')
 
-        if platform.system() == "Linux":
+        currentOS = platform.system()  # MacOS = Darwin
+        if currentOS == "Linux" or currentOS == "Darwin":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
@@ -160,8 +161,9 @@ class ManualDialog(QDialog):
         loadUi("QT_UI_files/manualDialog.ui", self)
 
         self.setWindowTitle('Käyttöohje')
-
-        if platform.system() == "Linux":
+        
+        currentOS = platform.system()  # MacOS = Darwin
+        if currentOS == "Linux" or currentOS == "Darwin":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
         else:
             self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
