@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/aboutDialog.ui'
+# Form implementation generated from reading ui file '/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/QT_UI_files/aboutDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -20,7 +20,7 @@ class Ui_Dialog(object):
         self.labelLogo.setMinimumSize(QtCore.QSize(250, 250))
         self.labelLogo.setMaximumSize(QtCore.QSize(250, 250))
         self.labelLogo.setText("")
-        self.labelLogo.setPixmap(QtGui.QPixmap("/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/docs/Pictures/logo.png"))
+        self.labelLogo.setPixmap(QtGui.QPixmap("/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/QT_UI_files/../docs/Pictures/logo_ilman_tekstia_Square310x310Logo.scale-150.png"))
         self.labelLogo.setScaledContents(True)
         self.labelLogo.setObjectName("labelLogo")
         self.frame = QtWidgets.QFrame(Dialog)

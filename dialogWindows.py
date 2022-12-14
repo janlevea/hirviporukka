@@ -1,17 +1,12 @@
 import sys
-import platform  # For detecting operating system for favicon path
+import platform  # Detect operating system for favicon path
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLineEdit
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QUrl
-from PyQt5 import QtWebEngineWidgets
 from PyQt5.uic import loadUi
-import plotly
 
-import figures
 import pgModule
-
 import config
 
 # Create an alert dialog for critical failures, eg no database connection established
@@ -40,9 +35,7 @@ class DialogTestMainWindow(QMainWindow):
 
         self.setWindowTitle('Pääikkuna dialogien testaukseen')
 
-        # Add dialogs to be tested here and run them as follows:
-        sankeyDialog = SankeyDialog()
-        sankeyDialog.exec()
+        # Add dialogs to be tested here and run them as follows
 
         # dbSettingsDialog = DBSettingsDialog()
         # dbSettingsDialog.exec()
@@ -61,10 +54,11 @@ class DBSettingsDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        loadUi("serverSettingsDialog.ui", self)
+        loadUi("QT_UI_files/serverSettingsDialog.ui", self)
 
         self.setWindowTitle('Tietokantapalvelimen asetukset')
 
+        # TODO: Add Mac to these checks?
         if platform.system() == "Linux":
             self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
         else:
@@ -126,39 +120,6 @@ class DBSettingsDialog(QDialog):
     def closeDialog(self):
         self.close()
 
-# A class for a sankey-dialog
-class SankeyDialog(QDialog):
-    """Creates a dialog to show sankey-diagram"""
-    # Constructor
-    def __init__(self):
-        super().__init__()
-
-        loadUi("sankeyDialog.ui", self)
-
-        self.setWindowTitle('Sankey-kaavio')
-
-        # TODO: Add Mac to these checks?
-        if platform.system() == "Linux":
-            self.setWindowIcon(QIcon("docs/Pictures/favicon-64x64.png"))
-        else:
-            self.setWindowIcon(QIcon("docs\Pictures\\favicon-64x64.png"))
-
-        # FIXME: webview doesn't work on linux. Didn't find a solution. Maybe just open the Sankey in a browser with a button in the GUI.
-        # Elements
-        self.sankeyWebV = self.sankeyWebEngineView
-        self.sankeyWebV.load(QUrl("http://google.fi"))
-
-        htmlFile = 'meatstreams.html'
-        # urlString = f'file:///{htmlFile}'
-        urlString = 'www.google.fi'
-        # figure = figures.testChart()
-        # figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
-        #url = QUrl(urlString) # Create a relative url to the file
-        #self.sankeyWebV.load("http://www.google.fi") # Load it into the web view element
-
-        # <string>file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html</string>
-        # self.sankeyWebEngineView.setUrl(QtCore.QUrl("file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html"))
-
 # A class for about dialog
 class AboutDialog(QDialog):
     """Creates about dialog"""
@@ -167,7 +128,7 @@ class AboutDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        loadUi("aboutDialog.ui", self)
+        loadUi("QT_UI_files/aboutDialog.ui", self)
 
         self.setWindowTitle('Tietoa ohjelmasta')
 
@@ -196,7 +157,7 @@ class ManualDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        loadUi("manualDialog.ui", self)
+        loadUi("QT_UI_files/manualDialog.ui", self)
 
         self.setWindowTitle('Käyttöohje')
 

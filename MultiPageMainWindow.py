@@ -18,6 +18,23 @@ import prepareData
 import dialogWindows
 import config
 
+"""
+import plotly
+import figures
+
+from PyQt5.QtCore import QUrl
+from PyQt5 import QtWebEngineWidgets
+
+    htmlFile = 'meatstreams.html'
+    urlString = f'file:///{htmlFile}'
+    # urlString = 'www.google.fi'
+    figure = figures.testChart()
+    figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
+    url = QUrl(urlString) # Create a relative url to the file
+    # <string>file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html</string>
+    # self.sankeyWebEngineView.setUrl(QtCore.QUrl("file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html"))
+"""
+
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
 class MultiPageMainWindow(QMainWindow):
@@ -26,7 +43,7 @@ class MultiPageMainWindow(QMainWindow):
         QMainWindow.__init__(self)
     
         # Create an UI from the ui file
-        loadUi("MultiPageMainWindow.ui", self)
+        loadUi("QT_UI_files/MultiPageMainWindow.ui", self)
         
         # Set window title
         self.setWindowTitle("Jahtirekisteri")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\JaniL\Documents\GitHub\hirviporukka_fork\hirviporukka\manualDialog.ui'
+# Form implementation generated from reading ui file '/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/QT_UI_files/manualDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,25 +14,32 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(270, 304)
-        self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(20, 20, 231, 16))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
+        Dialog.resize(270, 359)
         self.widget = QtWidgets.QWidget(Dialog)
-        self.widget.setGeometry(QtCore.QRect(10, 10, 252, 284))
+        self.widget.setGeometry(QtCore.QRect(12, 10, 252, 340))
         self.widget.setObjectName("widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtWidgets.QLabel(self.widget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.label.setFont(font)
+        self.label.setStyleSheet("color: rgb(0, 0, 0);\n"
+"background-color: rgb(255, 255, 255);")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
         self.labelLogo = QtWidgets.QLabel(self.widget)
         self.labelLogo.setMinimumSize(QtCore.QSize(250, 250))
         self.labelLogo.setMaximumSize(QtCore.QSize(250, 250))
         self.labelLogo.setText("")
-        self.labelLogo.setPixmap(QtGui.QPixmap("c:\\Users\\JaniL\\Documents\\GitHub\\hirviporukka_fork\\hirviporukka\\docs/Pictures/logo.png"))
+        self.labelLogo.setPixmap(QtGui.QPixmap("/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/QT_UI_files/../docs/Pictures/logo_ilman_tekstia_Square310x310Logo.scale-150.png"))
         self.labelLogo.setScaledContents(True)
         self.labelLogo.setObjectName("labelLogo")
         self.verticalLayout.addWidget(self.labelLogo)

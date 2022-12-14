@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\JaniL\Documents\GitHub\hirviporukka_fork\hirviporukka\MultiPageMainWindow.ui'
+# Form implementation generated from reading ui file '/home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/QT_UI_files/MultiPageMainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
