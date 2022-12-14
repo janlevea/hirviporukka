@@ -5,38 +5,25 @@
 # ---------------------
 
 import sys # Needed for starting the application
-from PyQt5.QtWidgets import * # All widgets
-from PyQt5.uic import loadUi
-from PyQt5.QtCore import * # FIXME: Everything, change to invidual components 
-from PyQt5.QtGui import QIcon
 import platform  # For detecting operating system for favicon path
+from datetime import date
+
+from PyQt5.QtWidgets import QMainWindow, QStatusBar, QApplication  # Needed widgets
+# from PyQt5.QtCore import * # All from QtCore
+# from PyQt5.QtWidgets import *  # All widgets
+from PyQt5.uic import loadUi
+from PyQt5.QtGui import QIcon
 
 # Own modules
-from datetime import date
 import pgModule
 import prepareData
 import dialogWindows
-import config
-
-"""
-import plotly
 import figures
-
-from PyQt5.QtCore import QUrl
-from PyQt5 import QtWebEngineWidgets
-
-    htmlFile = 'meatstreams.html'
-    urlString = f'file:///{htmlFile}'
-    # urlString = 'www.google.fi'
-    figure = figures.testChart()
-    figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
-    url = QUrl(urlString) # Create a relative url to the file
-    # <string>file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html</string>
-    # self.sankeyWebEngineView.setUrl(QtCore.QUrl("file:///home/jani/GitHub-repos/RasekoSyksy22/hirviporukka/meatstreams.html"))
-"""
+import config
 
 # CLASS DEFINITIONS FOR THE APP
 # -----------------------------
+# TODO: Make UI responsive to resizing
 class MultiPageMainWindow(QMainWindow):
     # Constructor, a method for creating objects from this class
     def __init__(self):
@@ -71,8 +58,10 @@ class MultiPageMainWindow(QMainWindow):
         self.statusBar.show() # Make it visible
 
         # Summary page (Yhteenveto)
+        self.openSankeyBtn = self.openSankeyPushButton
+        self.openSankeyBtn.clicked.connect(self.openSankey)  # Signal
         self.summaryRefreshBtn = self.summaryRefreshPushButton
-        self.summaryRefreshBtn.clicked.connect(self.populateSummaryPage) # Signal
+        self.summaryRefreshBtn.clicked.connect(self.populateSummaryPage)  # Signal
 
         self.summaryMeatSharedTW = self.meatSharedTableWidget
         self.summaryGroupSummaryTW = self.groupSummaryTableWidget
@@ -114,14 +103,17 @@ class MultiPageMainWindow(QMainWindow):
         # Member (Jäsen)
         self.admMembFirstNameLE = self.firstNameLineEdit
         self.admMembLastNameLE = self.lastNameLineEdit
-        self.admMembAdressLE = self.adressLineEdit
+        self.admMembAddressLE = self.addressLineEdit
         self.admMembCityLE = self.cityLineEdit
         self.admMembZipCodeLE = self.zipCodeLineEdit
-        self.admMembPhoneNumLE = self.phoneNumberLineEdit
         self.admMembSavePB = self.memberSavePushButton
         self.admMembSavePB.clicked.connect(self.admAddMember) # Signal
         self.admMembDelCB = self.memberDeleteComboBox
         self.admMembDelPB = self.memberDeletePushButton
+        self.admMembDelPB.clicked.connect(self.admDelMember) # Signal
+        self.admMembRestoreCB = self.memberRestoreComboBox
+        self.admMembRestorePB = self.memberRestorePushButton
+        self.admMembRestorePB.clicked.connect(self.admRestoreMember) # Signal
 
         # TODO: Create manual dialog (current is a placeholder)
         # No idea for manual yet. HTML file?.. Maybe PDF file.
@@ -158,6 +150,14 @@ class MultiPageMainWindow(QMainWindow):
     def openManualDialog(self):
         dialog = dialogWindows.ManualDialog()
         dialog.exec()
+
+    def openSankey(self):
+        # TODO: Set real database data to sankey-diagram (currently only shows random test-data)
+        htmlFile = 'meatstreams.html'
+        urlString = f'file:///{htmlFile}'
+
+        figure = figures.testChart()
+        figures.createOfflineFile(figure, htmlFile) # Write the chart to a html file
 
     # A method to populate summaryPage's table widgets
     def populateSummaryPage(self):
@@ -336,11 +336,33 @@ class MultiPageMainWindow(QMainWindow):
         else: 
             self.licenseGenderText = prepareData.prepareComboBox(databaseOperation3, self.licenseGenderCB, 0, 0)
     
+    def populateAdminPage(self):
+        # Populate removable member combobox
+        databaseOperation1 = pgModule.DatabaseOperation()
+        databaseOperation1.getAllRowsFromTable(self.connectionArguments, "public.nimivalinta")
+        # Check if error has occured
+        if databaseOperation1.errorCode != 0:
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation1.errorMessage, databaseOperation1.detailedMessage)
+        else:
+            self.admPageMembersIdList = prepareData.prepareComboBox(databaseOperation1, self.admMembDelCB, 1, 0)
+
+        # Populate restorable member combobox
+        databaseOperation2 = pgModule.DatabaseOperation()
+        databaseOperation2.getAllRowsFromTable(self.connectionArguments, "public.nimivalinta_inaktiiviset")
+        # Check if error has occured
+        if databaseOperation2.errorCode != 0:
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui', 
+            databaseOperation2.errorMessage, databaseOperation2.detailedMessage)
+        else:
+            self.admPageInactiveMembersIdList = prepareData.prepareComboBox(databaseOperation2, self.admMembRestoreCB, 1, 0)
+
     def populateAllPages(self):
         self.populateSummaryPage()
         self.populateKillPage()
         self.populateSharePage()
         self.populateLicensePage()
+        self.populateAdminPage()
 
     def pageChanged(self, index):
         # Yhteenveto = 0
@@ -357,7 +379,7 @@ class MultiPageMainWindow(QMainWindow):
         elif index == 3:
             self.populateLicensePage()
         elif index == 4:
-            pass
+            self.populateAdminPage()
         
         # Testi:
         # QMessageBox.information(self,
@@ -464,7 +486,83 @@ class MultiPageMainWindow(QMainWindow):
                     self.licenseAmountLE.clear()
 
     def admAddMember(self):
-        print("Moi!")
+        errorOccured = False
+        try:
+            membFirstName = self.admMembFirstNameLE.text()
+            membLastName = self.admMembLastNameLE.text()
+            membAddress = self.admMembAddressLE.text()
+            membCity = self.admMembCityLE.text()
+            membZipCode = self.admMembZipCodeLE.text()
+
+            # Insert data into jasen table
+            sqlClause = f"""INSERT INTO public.jasen(
+                etunimi, sukunimi, jakeluosoite, postinumero,
+                postitoimipaikka, tila)
+                VALUES (
+                '{membFirstName}', '{membLastName}', '{membAddress}', '{membZipCode}',
+                '{membCity}', 'aktiivinen');
+            """
+        except Exception as error:
+            errorOccured = True
+            dialogWindows.alert('Virhe', 'Tarkista antamasi tiedot', 'Tyyppivirhe', str(error))
+        finally:
+            if not errorOccured:
+                # Create DatabaseOperation object to execute the SQL clause
+                databaseOperation = pgModule.DatabaseOperation()
+                databaseOperation.insertRowToTable(self.connectionArguments, sqlClause)
+                
+                if databaseOperation.errorCode != 0:
+                    dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+                        databaseOperation.errorMessage, databaseOperation.detailedMessage)
+                else:
+                    # Update the page to show new data and clear previous data from elements
+                    self.populateAdminPage()
+                    self.admMembFirstNameLE.clear()
+                    self.admMembLastNameLE.clear()
+                    self.admMembAddressLE.clear()
+                    self.admMembCityLE.clear()
+                    self.admMembZipCodeLE.clear()
+
+    def admDelMember(self):
+        admMembDelCBItemIx = self.admMembDelCB.currentIndex()
+        memberToDeleteId = self.admPageMembersIdList[admMembDelCBItemIx]
+
+        # Create DatabaseOperation object to execute the SQL clause
+        databaseOperation = pgModule.DatabaseOperation()
+        databaseOperation.updateTable(
+            self.connectionArguments, "public.jasen", "tila = 'inaktiivinen'", 
+            f'jasen_id = {memberToDeleteId}'
+        )
+
+        # Vanha koodi jolla poistettiin jäsen kokonaan
+        # databaseOperation.deleteFromTable(
+        #     self.connectionArguments, "public.jasen", 
+        #     f"jasen_id = {memberToDeleteId}"
+        # )
+
+        if databaseOperation.errorCode != 0:
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+            databaseOperation.errorMessage, databaseOperation.detailedMessage)
+        else:
+            # Update the page to show new data
+            self.populateAdminPage()
+
+    def admRestoreMember(self):
+        admMembRestoreCBItemIx = self.admMembRestoreCB.currentIndex()
+        memberToRestoreId = self.admPageInactiveMembersIdList[admMembRestoreCBItemIx]
+
+        # Create DatabaseOperation object to execute the SQL clause
+        databaseOperation = pgModule.DatabaseOperation()
+        databaseOperation.updateTable(
+            self.connectionArguments, "public.jasen", "tila = 'aktiivinen'", 
+            f'jasen_id = {memberToRestoreId}'
+        )
+        if databaseOperation.errorCode != 0:
+            dialogWindows.alert('Vakava virhe', 'Tietokantaoperaatio epäonnistui',
+            databaseOperation.errorMessage, databaseOperation.detailedMessage)
+        else:
+            # Update the page to show new data
+            self.populateAdminPage()
 
 # APPLICATION CREATION AND STARTING
 # ---------------------------------
