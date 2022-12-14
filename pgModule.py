@@ -228,7 +228,6 @@ class DatabaseOperation():
             if self.errorCode == 0:
                 dbconnection.close()
 
-    # FIXME: Method to update a table -> how to build the limiting
     # -- Update a table
     def updateTable(self, connectionArgs, table, column, limit):
         """Updates a table
@@ -265,7 +264,6 @@ class DatabaseOperation():
                 dbconnection.commit()
                 
         except (Exception, psycopg2.Error) as error:
-
             # Set error values 
             self.errorCode = 1 # TODO: Design a set of error codes to use with this module
             self.errorMessage = 'Tietokannan käsittely ei onnistunut'
@@ -311,7 +309,7 @@ class DatabaseOperation():
                 
         except (Exception, psycopg2.Error) as error:
             # Set error values 
-            self.errorCode = 1 # TODO: Design a set of error codes to use with this module
+            self.errorCode = 1  # TODO: Design a set of error codes to use with this module
             self.errorMessage = 'Tietokannan käsittely ei onnistunut'
             self.detailedMessage = str(error)
 
