@@ -4,6 +4,9 @@
 # LIBRARIES AND MODULES
 # ---------------------
 
+# TODO: flake8 tarkistukset
+# flake8 . --max-line-length=127
+
 import sys # Needed for starting the application
 import platform  # For detecting operating system for favicon path
 from datetime import date
