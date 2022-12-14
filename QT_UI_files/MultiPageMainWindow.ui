@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>804</width>
-    <height>609</height>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,8 +38,8 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>531</width>
-        <height>501</height>
+        <width>751</width>
+        <height>493</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -57,6 +57,13 @@
            </property>
            <property name="buddy">
             <cstring>meatSharedTableWidget</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="openSankeyPushButton">
+           <property name="text">
+            <string>Avaa Sankey-kaavio</string>
            </property>
           </widget>
          </item>
@@ -114,24 +121,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QGroupBox" name="summarySuggestGroupBox">
-      <property name="geometry">
-       <rect>
-        <x>559</x>
-        <y>9</y>
-        <width>201</width>
-        <height>501</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="title">
-       <string>Ehdotukset</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="killPage">
      <attribute name="title">
@@ -141,10 +130,22 @@
       <property name="geometry">
        <rect>
         <x>560</x>
-        <y>120</y>
+        <y>209</y>
         <width>201</width>
         <height>71</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="font">
        <font>
@@ -159,9 +160,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
+        <y>170</y>
         <width>541</width>
-        <height>97</height>
+        <height>117</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -197,320 +198,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>60</y>
-        <width>201</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_21">
-       <item>
-        <widget class="QLabel" name="usageLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Käyttö</string>
-         </property>
-         <property name="buddy">
-          <cstring>usageComboBox</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="usageComboBox">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>60</y>
-        <width>211</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_11">
-       <item>
-        <widget class="QLabel" name="weightLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Paino</string>
-         </property>
-         <property name="buddy">
-          <cstring>weightLineEdit</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="weightLineEdit">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
         <x>10</x>
-        <y>10</y>
-        <width>181</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QLabel" name="shotByLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Kaataja</string>
-         </property>
-         <property name="buddy">
-          <cstring>shotByComboBox</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="shotByComboBox">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>10</y>
-        <width>211</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <widget class="QLabel" name="locationLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Paikka</string>
-         </property>
-         <property name="buddy">
-          <cstring>locationLineEdit</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="locationLineEdit">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="toolTip">
-          <string>Karttaan merkitty paikan nimi</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>10</y>
-        <width>131</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="shotDateLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Kaatopäivä</string>
-         </property>
-         <property name="buddy">
-          <cstring>shotDateEdit</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDateEdit" name="shotDateEdit">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="locale">
-          <locale language="Finnish" country="Finland"/>
-         </property>
-         <property name="currentSection">
-          <enum>QDateTimeEdit::DaySection</enum>
-         </property>
-         <property name="displayFormat">
-          <string>dd.MM.yyyy</string>
-         </property>
-         <property name="calendarPopup">
-          <bool>true</bool>
-         </property>
-         <property name="date">
-          <date>
-           <year>2022</year>
-           <month>11</month>
-           <day>15</day>
-          </date>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>560</x>
-        <y>10</y>
-        <width>201</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QLabel" name="animalLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Eläin</string>
-         </property>
-         <property name="buddy">
-          <cstring>animalComboBox</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="animalComboBox">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>181</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <widget class="QLabel" name="ageGroupLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Ikäryhmä</string>
-         </property>
-         <property name="buddy">
-          <cstring>ageGroupComboBox</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="ageGroupComboBox">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>60</y>
-        <width>131</width>
-        <height>46</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
-       <item>
-        <widget class="QLabel" name="genderLabel">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Sukupuoli</string>
-         </property>
-         <property name="buddy">
-          <cstring>genderComboBox</cstring>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="genderComboBox">
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>210</y>
+        <y>290</y>
         <width>751</width>
-        <height>301</height>
+        <height>211</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -534,6 +225,300 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>10</y>
+        <width>211</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_29">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QLabel" name="locationLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Paikka</string>
+           </property>
+           <property name="buddy">
+            <cstring>locationLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="locationLineEdit">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>Karttaan merkitty paikan nimi</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_11">
+         <item>
+          <widget class="QLabel" name="weightLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Paino</string>
+           </property>
+           <property name="buddy">
+            <cstring>weightLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="weightLineEdit">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>10</y>
+        <width>131</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_30">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="shotDateLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Kaatopäivä</string>
+           </property>
+           <property name="buddy">
+            <cstring>shotDateEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="shotDateEdit">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="locale">
+            <locale language="Finnish" country="Finland"/>
+           </property>
+           <property name="currentSection">
+            <enum>QDateTimeEdit::DaySection</enum>
+           </property>
+           <property name="displayFormat">
+            <string>dd.MM.yyyy</string>
+           </property>
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+           <property name="date">
+            <date>
+             <year>2022</year>
+             <month>11</month>
+             <day>15</day>
+            </date>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <widget class="QLabel" name="genderLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Sukupuoli</string>
+           </property>
+           <property name="buddy">
+            <cstring>genderComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="genderComboBox">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>181</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_31">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QLabel" name="shotByLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Kaataja</string>
+           </property>
+           <property name="buddy">
+            <cstring>shotByComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="shotByComboBox">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QLabel" name="ageGroupLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Ikäryhmä</string>
+           </property>
+           <property name="buddy">
+            <cstring>ageGroupComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="ageGroupComboBox">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>561</x>
+        <y>11</y>
+        <width>201</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_28">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="animalLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Eläin</string>
+           </property>
+           <property name="buddy">
+            <cstring>animalComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="animalComboBox">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <item>
+          <widget class="QLabel" name="usageLabel">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Käyttö</string>
+           </property>
+           <property name="buddy">
+            <cstring>usageComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="usageComboBox">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="sharePage">
      <attribute name="title">
@@ -542,10 +527,10 @@
      <widget class="QPushButton" name="shareSavePushButton">
       <property name="geometry">
        <rect>
-        <x>680</x>
-        <y>232</y>
+        <x>673</x>
+        <y>236</y>
         <width>81</width>
-        <height>41</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
@@ -556,9 +541,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>290</y>
+        <y>310</y>
         <width>751</width>
-        <height>221</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -597,10 +582,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>101</width>
-        <height>41</height>
+        <x>11</x>
+        <y>231</y>
+        <width>121</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -642,10 +627,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>230</y>
-        <width>171</width>
-        <height>41</height>
+        <x>147</x>
+        <y>231</y>
+        <width>131</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -667,10 +652,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>230</y>
-        <width>161</width>
-        <height>41</height>
+        <x>290</x>
+        <y>231</y>
+        <width>131</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -692,10 +677,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>470</x>
-        <y>230</y>
-        <width>201</width>
-        <height>41</height>
+        <x>433</x>
+        <y>231</y>
+        <width>231</width>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -723,9 +708,9 @@
       <property name="geometry">
        <rect>
         <x>634</x>
-        <y>70</y>
+        <y>80</y>
         <width>131</width>
-        <height>31</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
@@ -737,44 +722,13 @@
        <string>Tallenna</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="licenseSummaryTableWidget">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>110</y>
-        <width>761</width>
-        <height>401</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="permitYearLabel_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>90</y>
-        <width>111</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Myönnetyt luvat</string>
-      </property>
-      <property name="buddy">
-       <cstring>licenseSummaryTableWidget</cstring>
-      </property>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
         <width>151</width>
-        <height>46</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -810,7 +764,7 @@
         <x>170</x>
         <y>10</y>
         <width>161</width>
-        <height>47</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -846,7 +800,7 @@
         <x>340</x>
         <y>10</y>
         <width>141</width>
-        <height>46</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -882,7 +836,7 @@
         <x>490</x>
         <y>10</y>
         <width>131</width>
-        <height>46</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -918,7 +872,7 @@
         <x>630</x>
         <y>10</y>
         <width>135</width>
-        <height>47</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -948,289 +902,347 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>120</y>
+        <width>761</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_32">
+       <item>
+        <widget class="QLabel" name="permitYearLabel_2">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Myönnetyt luvat</string>
+         </property>
+         <property name="buddy">
+          <cstring>licenseSummaryTableWidget</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="licenseSummaryTableWidget"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="maintenancePage">
      <attribute name="title">
       <string>Ylläpito</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QGroupBox" name="groupBox_4">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>751</width>
-        <height>501</height>
+        <x>11</x>
+        <y>11</y>
+        <width>401</width>
+        <height>341</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QGroupBox" name="groupBox">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="title">
-          <string>Seura</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="title">
-          <string>Seurue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="title">
-          <string>Jakoryhmä</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="title">
-          <string>Jäsen</string>
-         </property>
-         <widget class="QPushButton" name="memberSavePushButton">
-          <property name="geometry">
-           <rect>
-            <x>190</x>
-            <y>152</y>
-            <width>171</width>
-            <height>51</height>
-           </rect>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>Jäsen</string>
+      </property>
+      <widget class="QPushButton" name="memberSavePushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>381</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Lisää jäsen</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="memberDeleteComboBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>240</y>
+         <width>261</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>  Poistettava jäsen</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="memberDeletePushButton">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>240</y>
+         <width>111</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Poista jäsen</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>35</y>
+         <width>181</width>
+         <height>66</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_22">
+        <item>
+         <widget class="QLabel" name="firstNameLabel">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
           </property>
           <property name="text">
-           <string>Lisää jäsen</string>
+           <string>Etunimi</string>
+          </property>
+          <property name="buddy">
+           <cstring>firstNameLineEdit</cstring>
           </property>
          </widget>
-         <widget class="QComboBox" name="memberDeleteComboBox">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>210</y>
-            <width>231</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="placeholderText">
-           <string>Poistettava jäsen</string>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="firstNameLineEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
          </widget>
-         <widget class="QPushButton" name="memberDeletePushButton">
-          <property name="geometry">
-           <rect>
-            <x>250</x>
-            <y>210</y>
-            <width>111</width>
-            <height>31</height>
-           </rect>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>35</y>
+         <width>191</width>
+         <height>66</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_23">
+        <item>
+         <widget class="QLabel" name="lastNameLabel">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
           </property>
           <property name="text">
-           <string>Poista jäsen</string>
+           <string>Sukunimi</string>
+          </property>
+          <property name="buddy">
+           <cstring>lastNameLineEdit</cstring>
           </property>
          </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>151</width>
-            <height>50</height>
-           </rect>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lastNameLineEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_22">
-           <item>
-            <widget class="QLabel" name="firstNameLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Etunimi</string>
-             </property>
-             <property name="buddy">
-              <cstring>firstNameLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="firstNameLineEdit"/>
-           </item>
-          </layout>
          </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>30</y>
-            <width>191</width>
-            <height>50</height>
-           </rect>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>141</width>
+         <height>66</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_24">
+        <item>
+         <widget class="QLabel" name="addressLabel">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_23">
-           <item>
-            <widget class="QLabel" name="lastNameLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Sukunimi</string>
-             </property>
-             <property name="buddy">
-              <cstring>lastNameLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lastNameLineEdit"/>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>90</y>
-            <width>131</width>
-            <height>50</height>
-           </rect>
+          <property name="text">
+           <string>Jakeluosoite</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_24">
-           <item>
-            <widget class="QLabel" name="addressLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Jakeluosoite</string>
-             </property>
-             <property name="buddy">
-              <cstring>adressLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="adressLineEdit"/>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>270</x>
-            <y>90</y>
-            <width>91</width>
-            <height>50</height>
-           </rect>
+          <property name="buddy">
+           <cstring>addressLineEdit</cstring>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_25">
-           <item>
-            <widget class="QLabel" name="zipCodeLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Postinumero</string>
-             </property>
-             <property name="buddy">
-              <cstring>zipCodeLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="zipCodeLineEdit"/>
-           </item>
-          </layout>
          </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>90</y>
-            <width>111</width>
-            <height>50</height>
-           </rect>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="addressLineEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_26">
-           <item>
-            <widget class="QLabel" name="cityLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Postitoimipaikka</string>
-             </property>
-             <property name="buddy">
-              <cstring>cityLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="cityLineEdit"/>
-           </item>
-          </layout>
          </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>150</y>
-            <width>169</width>
-            <height>51</height>
-           </rect>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>110</y>
+         <width>91</width>
+         <height>66</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_25">
+        <item>
+         <widget class="QLabel" name="zipCodeLabel">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_27">
-           <item>
-            <widget class="QLabel" name="phoneNumberLabel">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Puhelinnumero</string>
-             </property>
-             <property name="buddy">
-              <cstring>phoneNumberLineEdit</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="phoneNumberLineEdit"/>
-           </item>
-          </layout>
+          <property name="text">
+           <string>Postinumero</string>
+          </property>
+          <property name="buddy">
+           <cstring>zipCodeLineEdit</cstring>
+          </property>
          </widget>
-        </widget>
-       </item>
-      </layout>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="zipCodeLineEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>110</y>
+         <width>131</width>
+         <height>66</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_26">
+        <item>
+         <widget class="QLabel" name="cityLabel">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Postitoimipaikka</string>
+          </property>
+          <property name="buddy">
+           <cstring>cityLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="cityLineEdit">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QPushButton" name="memberRestorePushButton">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>290</y>
+         <width>111</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Aktivoi jäsen</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="memberRestoreComboBox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>290</y>
+         <width>261</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>  Aktivoitava poistettu jäsen</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>419</x>
+        <y>11</y>
+        <width>341</width>
+        <height>247</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>Seura</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="geometry">
+       <rect>
+        <x>419</x>
+        <y>264</y>
+        <width>341</width>
+        <height>246</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>Seurue</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>379</y>
+        <width>401</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>Jakoryhmä</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -1241,7 +1253,7 @@
      <x>0</x>
      <y>0</y>
      <width>804</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTietokanta">
@@ -1313,8 +1325,6 @@
   <tabstop>licenseSavePushButton</tabstop>
   <tabstop>licenseSummaryTableWidget</tabstop>
  </tabstops>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
