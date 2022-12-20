@@ -5,6 +5,8 @@
 # ----------------------
 import plotly.graph_objects as charts
 import plotly.offline as offline
+import pgModule
+import config
 
 # FUNCTIONS
 
@@ -18,11 +20,14 @@ def testChart():
     htmlFileName = 'meatstreams.html'
 
     # Labels for the sankey chart (from a view)
+    # TODO: Read elaimen_nimi strings from elain table and populate to sourceLabels
     sourceLabels = ['Hirvi', 'Peura'] # Where the meat is coming from
+    # TODO: Read ryhman_nimi strings from jakoryhma table and populate to targetLabels
     targetLabels = ['Ryhmä 1', 'Ryhmä 2', 'Ryhmä 3'] # Which group has received meat
     allLabels = sourceLabels + targetLabels # All labels for the chart in a single list
 
     # Simulation Data (list of tuples), in reality the data should come from the database view 
+    # TODO: Use real data from database sourceLabels -> targetLabels -> amount(kg)
     dBdata = [('Hirvi', 'Ryhmä 1', 100),
         ('Hirvi', 'Ryhmä 2', 200),
         ('Hirvi', 'Ryhmä 3', 100),
@@ -73,6 +78,33 @@ def testChart():
     # figure.update_traces(orientation='v', selector=dict(type='sankey'))
     offline.plot(figure, filename= htmlFileName) # Write the chart to an html file
     
+def getDataAndCreateChart():
+    databaseOperation = pgModule.DatabaseOperation()
+    connectionArguments = databaseOperation.readDatabaseSettingsFromFile(config.DBSETTINGS_FILE)
+    databaseOperation.getAllRowsFromTable(connectionArguments, "public.elain")
+    animalNames = []
+    for tuple in databaseOperation.resultSet:
+        animalNames.append(tuple[0])
+    print(animalNames)
+
+    groupNames = []
+    # print(databaseOperation.resultSet)
+    databaseOperation.getAllRowsFromTable(connectionArguments, "public.jakoryhma")
+    for tuple in databaseOperation.resultSet:
+        groupNames.append(tuple[2])
+    print(groupNames)
+    
+    #createSankeyChart()
+
+
+    # TODO: Read elaimen_nimi strings from elain table and populate to sourceLabels
+    # sourceLabels = ['Hirvi', 'Peura'] # Where the meat is coming from
+    # TODO: Read ryhman_nimi strings from jakoryhma table and populate to targetLabels
+    # targetLabels = ['Ryhmä 1', 'Ryhmä 2', 'Ryhmä 3'] # Which group has received meat
+    # allLabels = sourceLabels + targetLabels # All labels for the chart in a single list
+
+if __name__ == "__main__":
+    getDataAndCreateChart()
 
 def createSankeyChart(dBData, sourceColors, targetColors, linkColors, heading):
     """Creates a Sankey chart from database data
